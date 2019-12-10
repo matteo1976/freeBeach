@@ -1,0 +1,154 @@
+<div id="omni-search">
+
+    <div layout="row" class="omni-input">
+        <div layout="column" layout-align="center">
+            <md-input-container md-no-float="" class="md-block">
+                <input ng-model="text" ng-change="search()" placeholder="Cerca" type="text" class="md-input">
+            </md-input-container>
+        </div>
+
+        <div layout="column">
+            <md-button class="config-button" ng-click="config.open($event)">
+                <md-tooltip>Configura la ricerca</md-tooltip>
+                <md-icon md-svg-icon="img/materialdesignicons.com/google/settings.svg">
+                </md-icon>
+            </md-button>
+        </div>
+    </div>
+
+    <div layout="row" class="results">
+        <div flex layout="column" ng-show="clienti.isVisible()">
+            <div>
+                <md-icon md-svg-icon="img/material.io/ic_person_24px.svg">
+                </md-icon>
+                Clienti
+            </div>
+
+            <div ng-include="'views/omni-search/cliente-flex.html'">
+            </div>
+        </div>
+
+        <!--
+        <div flex layout="column" ng-show="postazioni.isVisible()">
+            <md-list>
+                <md-list-item class="omni-heading">
+                    <md-icon md-svg-icon="img/material.io/ic_beach_access_24px.svg">
+                    </md-icon>
+                    Postazioni
+                </md-list-item>
+                <md-list-item ng-repeat="postazione in postazioni.data">
+                    <a href="#">
+                        {{postazione.Fila}}
+                        {{postazione.Colonna}}
+                    </a>
+                </md-list-item>
+            </md-list>
+        </div>
+        -->
+
+        <div flex="20" layout="column" ng-show="operatori.switch">
+            <div flex ng-show="clienti.isVisible()">
+                <div>
+                    <md-icon md-svg-icon="img/materialdesignicons.com/cody/account-settings-variant.svg">
+                </md-icon>
+                    Operatori
+                </div>
+
+                <div ng-include="'views/omni-search/operatore-flex.html'">
+                </div>
+            </div>
+        </div>
+
+        <div flex="20" ng-show="abbonamenti.isVisible()">
+            <div>
+                <md-icon md-svg-icon="img/materialdesignicons.com/austin_andrews/calendar-multiple-check.svg">
+                </md-icon>
+                Abbonamenti
+            </div>
+
+            <div ng-include="'views/omni-search/abbonamento-flex.html'">
+            </div>
+        </div>
+
+        <div flex="20" layout="column" ng-show="servizi.isVisible()">
+            <div>
+                <md-icon md-svg-icon="img/materialdesignicons.com/google/library.svg">
+                </md-icon>
+                Servizi
+            </div>
+
+            <div ng-include="'views/omni-search/tile-servizio.html'">
+            </div>
+        </div>
+
+    </div>
+
+    <!--
+    TODO: per il caricamento progressivo dei risultati utilizzare
+    il <a href="https://material.angularjs.org/latest/demo/virtualRepeat">
+        virtual repeat
+    </a>
+    -->
+
+    <div style="visibility: hidden">
+        <div class="md-dialog-container" id="omni-search-config-dialog">
+            <md-dialog layout-padding arial-label="Configurazione ricerca">
+                <md-dialog-content>
+                    <h2>Configurazione ricerca</h2>
+                    <p>
+                        La configurazione iniziale attiva solo le ricerche più frequenti.
+                        Se vuoi puoi attivare anche altre ricerche.
+                    </p>
+
+                    <div layout="row">
+                        <md-icon md-svg-icon="img/material.io/ic_person_24px.svg">
+                        </md-icon>
+                        <md-switch ng-model="clienti.switch" aria-label="Abilita la ricerca sui clienti">
+                            Cerca i clienti per nome
+                        </md-switch>
+                    </div>
+
+                    <!--
+                    <div layout="row">
+                        <md-icon md-svg-icon="img/material.io/ic_beach_access_24px.svg">
+                        </md-icon>
+                        <md-switch ng-model="postazioni.switch" aria-label="Abilita la ricerca sulle postazioni">
+                            Cerca le postazioni per fila e colonna
+                        </md-switch>
+                    </div>
+                    -->
+
+                    <div layout="row">
+                        <md-icon md-svg-icon="img/materialdesignicons.com/cody/account-settings-variant.svg">
+                        </md-icon>
+                        <md-switch ng-model="operatori.switch" aria-label="Abilita la ricerca sugli operatori">
+                            Cerca gli operatori per nome
+                        </md-switch>
+                    </div>
+
+                    <div layout="row">
+                        <md-icon md-svg-icon="img/materialdesignicons.com/austin_andrews/calendar-multiple-check.svg">
+                        </md-icon>
+                        <md-switch ng-model="abbonamenti.switch" aria-label="Abilita la ricerca sugli abbonamenti">
+                            Cerca gli abbonamenti per codice
+                        </md-switch>
+                    </div>
+
+                    <div layout="row">
+                        <md-icon md-svg-icon="img/materialdesignicons.com/google/library.svg">
+                        </md-icon>
+                        <md-switch ng-model="servizi.switch" aria-label="Abilita la ricerca sui servizi">
+                            Cerca i servizi per codice
+                        </md-switch>
+                    </div>
+                </md-dialog-content>
+
+                <md-dialog-actions>
+                    <md-button class="md-primary md-raised" ng-click="config.close()">
+                        OK
+                    </md-button>
+                </md-dialog-actions>
+            </md-dialog>
+        </div>
+    </div>
+</div>

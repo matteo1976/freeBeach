@@ -1,0 +1,29 @@
+<md-card ng-repeat="operatore in operatori.data">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">
+                {{operatore.nome}}
+            </span>
+            <!--<span class="md-subhead">Large</span>-->
+        </md-card-title-text>
+        <md-card-title-media>
+            <md-button>
+                <md-icon md-svg-icon="img/material.io/ic_mode_edit_24px.svg"/>
+            </md-button>
+        </md-card-title-media>
+    </md-card-title>
+    <md-card-content>
+        <div ng-show="{{operatore.indirizzo !== null}}">
+            {{operatore.indirizzo}}
+        </div>
+        <div ng-show="{{operatore.telefono !== null}}">
+            {{operatore.telefono}}
+        </div>
+        <div ng-show="{{operatore.email !== null}}">
+            {{operatore.email}}
+        </div>
+        <div ng-show="{{operatore.note !== null}}">
+            {{operatore.note}}
+        </div>
+    </md-card-content>
+</md-card>

@@ -1,0 +1,28 @@
+# Propel configuration file.
+#
+# Configuration reference available at:
+# http://propelorm.org/documentation/reference/configuration-file.html
+#
+# Changes in this file will be rebuild in conf/config.php only after the
+# following command has been run from the backend dir:
+# $ vendor/bin/propel config:convert
+
+propel:
+    database:
+        connections:
+            dbspiaggie:
+                adapter: mysql
+                classname: Propel\Runtime\Connection\DebugPDO
+                dsn: mysql:host=localhost;port=3306;dbname=dbspiaggie
+                user: root
+                password: root
+                settings:
+                    charset: utf8mb4
+    runtime:
+        log:
+            defaultLogger:
+                type: stream
+                #path: /home/mud/Projects/sb/trunk/logs/sb_propel.log
+                path: /var/www/html/htdocs/seatbeach/logs/sb_propel.log
+                level: 100
+

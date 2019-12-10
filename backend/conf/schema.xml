@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="dbspiaggie" defaultIdMethod="native" defaultPhpNamingMethod="underscore">
+  <table name="abbonamenti" idMethod="native" phpName="Abbonamenti">
+    <column name="id_abbonamento" phpName="IdAbbonamento" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="codice" phpName="Codice" type="VARCHAR" size="45" required="true"/>
+    <column name="costo" phpName="Costo" type="FLOAT" required="true"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="account" idMethod="native" phpName="Account">
+    <column name="id_account" phpName="IdAccount" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_cliente" phpName="IdCliente" type="INTEGER"/>
+    <column name="id_profilo" phpName="IdProfilo" type="INTEGER" required="true"/>
+    <column name="email" phpName="Email" type="VARCHAR" size="45" required="true"/>
+    <column name="password" phpName="Password" type="VARCHAR" size="45" required="true"/>
+    <column name="nome" phpName="Nome" type="VARCHAR" size="45" required="true"/>
+    <column name="indirizzo" phpName="Indirizzo" type="VARCHAR" size="45"/>
+    <column name="telefono" phpName="Telefono" type="VARCHAR" size="45"/>
+    <column name="abilitato" phpName="Abilitato" type="BOOLEAN" size="1" required="true" defaultValue="true"/>
+    <foreign-key foreignTable="clienti" name="fk_account_cliente1">
+      <reference local="id_cliente" foreign="id_cliente"/>
+    </foreign-key>
+    <foreign-key foreignTable="profili" name="fk_account_profilo1">
+      <reference local="id_profilo" foreign="id_profilo"/>
+    </foreign-key>
+    <index name="fk_account_cliente1_idx">
+      <index-column name="id_cliente"/>
+    </index>
+    <index name="fk_account_profilo1_idx">
+      <index-column name="id_profilo"/>
+    </index>
+    <unique name="email_UNIQUE">
+      <unique-column name="email"/>
+    </unique>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="assegnamenti_postazione" idMethod="native" phpName="AssegnamentiPostazione">
+    <column name="id_assegnamento_postazione" phpName="IdAssegnamentoPostazione" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_cliente" phpName="IdCliente" type="INTEGER" required="true"/>
+    <column name="id_postazione" phpName="IdPostazione" type="INTEGER" required="true"/>
+    <column name="id_abbonamento" phpName="IdAbbonamento" type="INTEGER" required="true"/>
+    <column name="data_inizio" phpName="DataInizio" type="TIMESTAMP" required="true"/>
+    <column name="data_fine" phpName="DataFine" type="TIMESTAMP" required="true"/>
+    <column name="autorizzati" phpName="Autorizzati" type="VARCHAR" size="100"/>
+    <column name="note" phpName="Note" type="VARCHAR" size="100"/>
+    <foreign-key foreignTable="postazioni" name="fk_Postazioni Assegnate_Mappa_postazioni1">
+      <reference local="id_postazione" foreign="id_postazione"/>
+    </foreign-key>
+    <foreign-key foreignTable="clienti" name="fk_Postazioni Assegnate_clienti1">
+      <reference local="id_cliente" foreign="id_cliente"/>
+    </foreign-key>
+    <foreign-key foreignTable="abbonamenti" name="fk_assegnamenti_postazione_abbonamenti1">
+      <reference local="id_abbonamento" foreign="id_abbonamento"/>
+    </foreign-key>
+    <index name="fk_Postazioni Assegnate_clienti1_idx">
+      <index-column name="id_cliente"/>
+    </index>
+    <index name="fk_Postazioni Assegnate_Mappa_postazioni1_idx">
+      <index-column name="id_postazione"/>
+    </index>
+    <index name="fk_assegnamenti_postazione_abbonamenti1_idx">
+      <index-column name="id_abbonamento"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="clienti" idMethod="native" phpName="Clienti">
+    <column name="id_cliente" phpName="IdCliente" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="da_saldare" phpName="DaSaldare" type="DECIMAL" size="5" scale="2"/>
+    <column name="note" phpName="Note" type="VARCHAR" size="100"/>
+    <column name="indirizzo" phpName="Indirizzo" type="VARCHAR" size="100"/>
+    <column name="cap" phpName="Cap" type="VARCHAR" size="10"/>
+    <column name="citta" phpName="Citta" type="VARCHAR" size="45"/>
+    <column name="provincia" phpName="Provincia" type="VARCHAR" size="45"/>
+    <column name="stato" phpName="Stato" type="VARCHAR" size="45"/>
+    <column name="codice_fiscale" phpName="CodiceFiscale" type="VARCHAR" size="16"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="costi_servizio" idMethod="native" phpName="CostiServizio">
+    <column name="id_costo" phpName="IdCosto" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_tipo_servizio" phpName="IdTipoServizio" type="INTEGER" required="true"/>
+    <column name="inizio_periodo" phpName="InizioPeriodo" type="DATE"/>
+    <column name="fine_periodo" phpName="FinePeriodo" type="DATE"/>
+    <column name="costo" phpName="Costo" type="FLOAT" required="true"/>
+    <foreign-key foreignTable="tipi_servizio" name="fk_CostoServizi_TipoServizio1">
+      <reference local="id_tipo_servizio" foreign="id_tipo_servizio"/>
+    </foreign-key>
+    <index name="fk_CostoServizi_TipoServizio1_idx">
+      <index-column name="id_tipo_servizio"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="disponibilita_postazione" idMethod="native" phpName="DisponibilitaPostazione">
+    <column name="id_disponibilita_postazione" phpName="IdDisponibilitaPostazione" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_assegnamento_postazione" phpName="IdAssegnamentoPostazione" type="INTEGER" required="true"/>
+    <column name="data_inizio" phpName="DataInizio" type="TIMESTAMP" required="true"/>
+    <column name="data_fine" phpName="DataFine" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="assegnamenti_postazione" name="fk_disponibilita_postazione_assegnamento_postazione1">
+      <reference local="id_assegnamento_postazione" foreign="id_assegnamento_postazione"/>
+    </foreign-key>
+    <index name="fk_disponibilita_postazione_assegnamento_postazione1_idx">
+      <index-column name="id_assegnamento_postazione"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="log" idMethod="native" phpName="Log">
+    <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="data" phpName="Data" type="TIMESTAMP" required="true"/>
+    <column name="entita" phpName="Entita" type="VARCHAR" size="45" required="true"/>
+    <column name="proprieta" phpName="Proprieta" type="VARCHAR" size="45" required="true"/>
+    <column name="valore_precedente" phpName="ValorePrecedente" type="VARCHAR" size="45"/>
+    <column name="valore_nuovo" phpName="ValoreNuovo" type="VARCHAR" size="45" required="true"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="pagamenti" idMethod="native" phpName="Pagamenti">
+    <column name="id_pagamento" phpName="IdPagamento" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_cliente" phpName="IdCliente" type="INTEGER" required="true"/>
+    <column name="data" phpName="Data" type="TIMESTAMP" required="true"/>
+    <column name="importo" phpName="Importo" type="FLOAT" required="true"/>
+    <foreign-key foreignTable="clienti" name="fk_pagamenti_clienti1">
+      <reference local="id_cliente" foreign="id_cliente"/>
+    </foreign-key>
+    <index name="fk_pagamenti_clienti1_idx">
+      <index-column name="id_cliente"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="postazioni" idMethod="native" phpName="Postazioni">
+    <column name="id_postazione" phpName="IdPostazione" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="fila" phpName="Fila" type="VARCHAR" size="4" required="true"/>
+    <column name="colonna" phpName="Colonna" type="VARCHAR" size="4" required="true"/>
+    <column name="settore" phpName="Settore" type="VARCHAR" size="4"/>
+    <column name="x" phpName="X" type="INTEGER" required="true"/>
+    <column name="y" phpName="Y" type="INTEGER" required="true"/>
+    <column name="note" phpName="Note" type="VARCHAR" size="100"/>
+    <unique name="xy">
+      <unique-column name="y"/>
+      <unique-column name="x"/>
+    </unique>
+    <unique name="sfc">
+      <unique-column name="fila"/>
+      <unique-column name="colonna"/>
+      <unique-column name="settore"/>
+    </unique>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="privilegi" idMethod="native" phpName="Privilegi">
+    <column name="id_privilegio" phpName="IdPrivilegio" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="descrizione" phpName="Descrizione" type="VARCHAR" size="45" required="true"/>
+    <column name="note_interne" phpName="NoteInterne" type="VARCHAR" size="100"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="privilegi_profilo" isCrossRef="true" idMethod="native" phpName="PrivilegiProfilo">
+    <column name="id_privilegio" phpName="IdPrivilegio" type="INTEGER" primaryKey="true" required="true"/>
+    <column name="id_profilo" phpName="IdProfilo" type="INTEGER" primaryKey="true" required="true"/>
+    <foreign-key foreignTable="privilegi" name="fk_privilegi_profilo_id_privilegio">
+      <reference local="id_privilegio" foreign="id_privilegio"/>
+    </foreign-key>
+    <foreign-key foreignTable="profili" name="fk_privilegi_profilo_id_profilo">
+      <reference local="id_profilo" foreign="id_profilo"/>
+    </foreign-key>
+    <index name="fk_privilegi_profilo_id_profilo_idx">
+      <index-column name="id_profilo"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="profili" idMethod="native" phpName="Profili">
+    <column name="id_profilo" phpName="IdProfilo" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="descrizione" phpName="Descrizione" type="VARCHAR" size="45" required="true"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="schede" idMethod="native" phpName="Schede">
+    <column name="id_scheda" phpName="IdScheda" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_cliente" phpName="IdCliente" type="INTEGER"/>
+    <column name="codice_scheda" phpName="CodiceScheda" type="VARCHAR" size="45" required="true"/>
+    <column name="importo_scheda" phpName="ImportoScheda" type="FLOAT"/>
+    <column name="data_rilascio" phpName="DataRilascio" type="TIMESTAMP"/>
+    <foreign-key foreignTable="clienti" name="fk_schede_clienti1">
+      <reference local="id_cliente" foreign="id_cliente"/>
+    </foreign-key>
+    <index name="fk_schede_clienti1_idx">
+      <index-column name="id_cliente"/>
+    </index>
+    <unique name="codice_scheda">
+      <unique-column name="codice_scheda"/>
+    </unique>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="servizi" idMethod="native" phpName="Servizi">
+    <column name="id_servizio" phpName="IdServizio" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_assegnamento_postazione" phpName="IdAssegnamentoPostazione" type="INTEGER" required="true"/>
+    <column name="id_tipo_servizio" phpName="IdTipoServizio" type="INTEGER" required="true"/>
+    <column name="data_inizio" phpName="DataInizio" type="TIMESTAMP" required="true"/>
+    <column name="data_fine" phpName="DataFine" type="TIMESTAMP" required="true"/>
+    <column name="qta" phpName="Qta" type="INTEGER" required="true"/>
+    <column name="costo_finale" phpName="CostoFinale" type="FLOAT" required="true"/>
+    <column name="note" phpName="Note" type="VARCHAR" size="100"/>
+    <foreign-key foreignTable="assegnamenti_postazione" name="fk_Servizi_Mappa_postazioni1">
+      <reference local="id_assegnamento_postazione" foreign="id_assegnamento_postazione"/>
+    </foreign-key>
+    <foreign-key foreignTable="tipi_servizio" name="fk_Servizi_TipoServizio1">
+      <reference local="id_tipo_servizio" foreign="id_tipo_servizio"/>
+    </foreign-key>
+    <index name="fk_Servizi_TipoServizio1_idx">
+      <index-column name="id_tipo_servizio"/>
+    </index>
+    <index name="fk_Servizi_Mappa_postazioni1_idx">
+      <index-column name="id_assegnamento_postazione"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="subaffitti_postazione" idMethod="native" phpName="SubaffittiPostazione">
+    <column name="id_subaffitto_postazione" phpName="IdSubaffittoPostazione" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_disponibilita_postazioni" phpName="IdDisponibilitaPostazioni" type="INTEGER" required="true"/>
+    <column name="data_inizio" phpName="DataInizio" type="TIMESTAMP" required="true"/>
+    <column name="data_fine" phpName="DataFine" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="disponibilita_postazione" name="fk_SubAffitto_Postazione_DisponibilitaPostazioni1">
+      <reference local="id_disponibilita_postazioni" foreign="id_disponibilita_postazione"/>
+    </foreign-key>
+    <index name="fk_SubAffitto_Postazione_Mappa_postazioni1_idx">
+      <index-column name="id_subaffitto_postazione"/>
+    </index>
+    <index name="fk_SubAffitto_Postazione_DisponibilitaPostazioni1_idx">
+      <index-column name="id_disponibilita_postazioni"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="tipi_servizio" idMethod="native" phpName="TipiServizio">
+    <column name="id_tipo_servizio" phpName="IdTipoServizio" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="descrizione" phpName="Descrizione" type="VARCHAR" size="45" required="true"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+</database>

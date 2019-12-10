@@ -1,0 +1,26 @@
+<md-card ng-repeat="abbonamento in abbonamenti.data">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">
+                {{abbonamento.Codice}}
+            </span>
+            <!--<span class="md-subhead">Large</span>-->
+        </md-card-title-text>
+        <md-card-title-media>
+            <md-button>
+                <md-icon md-svg-icon="img/material.io/ic_mode_edit_24px.svg"/>
+            </md-button>
+        </md-card-title-media>
+    </md-card-title>
+    <md-card-content>
+        <div>
+            {{abbonamento.Costo}} &euro;
+        </div>
+    </md-card-content>
+    <!--
+    <md-card-actions layout="row" layout-align="end center">
+            <md-button>Action 1</md-button>
+            <md-button>Action 2</md-button>
+    </md-card-actions>
+    -->
+</md-card>

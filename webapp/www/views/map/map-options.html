@@ -1,0 +1,42 @@
+<div class="md-dialog-container map-options">
+    <md-dialog layout-padding arial-label="Navigazione mappa">
+        <md-dialog-content>
+            <md-icon md-svg-icon="img/icons/ic_close_24px.svg"
+                     class="close-button"
+                     ng-click="options.cancel()"
+                     aria-label="Chiudi">
+            </md-icon>
+
+            <md-tabs>
+                <md-tab label="Situazione">
+                    <p>
+                        Visualizza la situazione della spiaggia nella data indicata
+                        in base alle prenotazioni e agli abbonamenti
+                    </p>
+                    <div class="datepicker">
+                        <md-datepicker ng-model="mapDate" ng-change="updateMap()"
+                                       md-placeholder="Data situazione">
+                        </md-datepicker>
+                    </div>
+                </md-tab>
+
+                <md-tab label="Disponibilità">
+                    <p>
+                        Cerca le postazioni libere nel periodo indicato
+                    </p>
+                    <p>
+                    <md-datepicker ng-model="freeFrom" ng-change="updateFreeSpots()"
+                                   md-placeholder="Inizio disponibilità">
+                    </md-datepicker>
+                    </p>
+                    <p>
+                    <md-datepicker ng-model="freeTo" ng-change="updateFreeSpots()"
+                                   md-placeholder="Fine disponibilità">
+                    </md-datepicker>
+                    </p>
+                </md-tab>
+            </md-tabs>
+
+        </md-dialog-content>
+    </md-dialog>
+</div>

@@ -1,0 +1,89 @@
+<md-card ng-repeat="cliente in clienti.data" class="customer">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">
+                {{cliente.nome}}
+            </span>
+            <!--<span class="md-subhead">Large</span>-->
+        </md-card-title-text>
+        <md-card-title-media>
+            <md-icon md-svg-icon="img/material.io/ic_mode_edit_24px.svg"
+                     ng-click="editCliente(cliente)"
+                     class="button-icon">
+            </md-icon>
+        </md-card-title-media>
+    </md-card-title>
+
+    <md-card-content>
+
+        <div layout="row" ng-if="cliente.hasIndirizzo()">
+            <div layout="column" flex>
+                {{cliente.indirizzo}}
+                {{cliente.cap}}
+                {{cliente.citta}}
+                {{cliente.provincia}}
+                {{cliente.stato}}
+            </div>
+        </div>
+
+        <div layout="row">
+            <div layout="column" flex ng-if="cliente.hasTelefono()">
+                <md-icon md-svg-icon="img/materialdesignicons.com/google/phone.svg">
+                </md-icon>
+                {{cliente.telefono}}
+            </div>
+            <div layout="column" flex ng-if="cliente.hasEmail()">
+                <md-icon md-svg-icon="img/materialdesignicons.com/austin_andrews/mail-ru.svg">
+                </md-icon>
+                {{cliente.email}}
+            </div>
+        </div>
+
+        <div layout="row" ng-if="cliente.codiceFiscale !== null">
+            <div layout="column" flex>
+                CF {{cliente.codiceFiscale}}
+            </div>
+        </div>
+
+        <div layout="row" ng-if="cliente.note !== null">
+            <div layout="column" flex>
+                {{cliente.note}}
+            </div>
+        </div>
+
+        <div layout="row" layout-align="start center" class="scheda"
+             ng-repeat="scheda in cliente.schede">
+            <div flex="none" layout="column">
+                <md-icon md-svg-icon="img/material.io/ic_credit_card_24px.svg">
+                </md-icon>
+            </div>
+            <div flex layout="column">
+                {{scheda.codice}}
+            </div>
+            <div flex layout="column">
+                {{scheda.dataRilascio| date: "d/M/y"}}
+            </div>
+            <div flex layout="column">
+                {{scheda.importo}} &euro;
+            </div>
+        </div>
+
+        <div ng-repeat="assegnamento in cliente.getAssegnamenti({current: true, next: true})" class="postazione" layout="row">
+            <div layout="column" flex="none">
+                <md-icon md-svg-icon="img/material.io/ic_beach_access_24px.svg">
+                </md-icon>
+            </div>
+            <div layout="column" flex>
+                {{assegnamento.postazione.fila + assegnamento.postazione.colonna}}
+            </div>
+            <div layout="column" flex>
+                {{assegnamento.abbonamento.codice}}
+            </div>
+            <div layout="column" flex>
+                {{assegnamento.dataInizio| date: "d/M"}}
+                -
+                {{assegnamento.dataFine| date: "d/M"}}
+            </div>
+        </div>
+    </md-card-content>
+</md-card>

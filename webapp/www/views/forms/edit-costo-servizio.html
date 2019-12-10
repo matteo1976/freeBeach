@@ -1,0 +1,75 @@
+<div class="md-dialog-container">
+    <md-dialog layout-padding arial-label="Costo servizio">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <div layout="row" flex>
+                    <div layout="column" flex="none">
+                        <md-button class="md-icon-button" ng-click="confirm()">
+                            <md-icon md-svg-src="img/material.io/ic_arrow_back_24px.svg"
+                                     aria-label="Close dialog">
+                            </md-icon>
+                        </md-button>
+                    </div>
+                    <div layout="column" layout-align="center center" flex="grow">
+                        <h2>{{::"Costo " + tipoServizio.descrizione}}</h2>
+                    </div>
+                </div>
+            </div>
+        </md-toolbar>
+
+        <form name="costoServizioForm">
+
+            <md-dialog-content class="edit-costo-servizio">
+
+                <div layout="row" flex>
+                    <div layout="column" layout-align="center" flex="grow">
+                        <md-input-container>
+                            <label>Costo</label>
+                            <input type="number" name="costo" required maxlength="45"
+                                   ng-model="costoServizio.costo"
+                                   ng-change="changed()">
+                            <div ng-messages="costoServizioForm.costo.$error" role="alert">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div layout="row" flex>
+                    <div layout="column" flex>
+                        <md-input-container>
+                            <label>Inizio validità costo</label>
+                            <md-datepicker name="inizioPeriodo"
+                                           ng-model="costoServizio.inizioPeriodo"
+                                           ng-change="changed()"
+                                           md-placeholder="Inserisci la data"
+                                           required>
+                            </md-datepicker>
+                            <div ng-messages="costoServizioForm.inizioPeriodo.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div layout="row" flex>
+                    <div layout="column" flex>
+                        <md-input-container>
+                            <label>Fine validità costo</label>
+                            <md-datepicker name="finePeriodo"
+                                           ng-model="costoServizio.finePeriodo"
+                                           ng-change="changed()"
+                                           md-placeholder="Inserisci la data"
+                                           required>
+                            </md-datepicker>
+                            <div ng-messages="costoServizioForm.finePeriodo.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+            </md-dialog-content>
+        </form>
+    </md-dialog>
+</div>

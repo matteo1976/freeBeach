@@ -1,0 +1,44 @@
+{
+    "elements": {
+        "md-card-actions": {},
+        "md-card-title-media": {},
+        "md-toolbar": {},
+        "md-list-item": {},
+        "md-list": {},
+        "md-card-header": {},
+        "md-dialog-actions": {},
+        "md-dialog-content": {},
+        "md-card": {},
+        "md-dialog": {},
+        "md-card-title-text": {},
+        "md-card-avatar": {},
+        "md-card-header-text": {},
+        "md-icon": {
+            "attributes": {
+                "md-svg-icon": {},
+                "md-svg-src": {}
+            }
+        },
+        "md-card-title": {},
+        "md-button": {},
+        "md-input-container": {}
+    },
+    "attributes": {
+        "md-no-float": {},
+        "arial-label": {},
+        "layout-padding": {},
+        "ng-click": {},
+        "ng-repeat": {},
+        "ng-if": {},
+        "click": {},
+        "layout-align": {},
+        "ng-disabled": {},
+        "layout": {},
+        "ng-show": {},
+        "flex": {},
+        "style": {},
+        "id": {},
+        "class": {},
+        "aria-label": {}
+    }
+}

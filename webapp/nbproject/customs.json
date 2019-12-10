@@ -1,0 +1,51 @@
+{
+    "elements": {
+        "md-slider-container": {},
+        "md-fab-speed-dial": {
+            "attributes": {
+                "md-direction": {}
+            }
+        },
+        "md-fab-actions": {},
+        "md-icon": {
+            "attributes": {
+                "md-svg-src": {}
+            }
+        },
+        "md-fab-trigger": {},
+        "md-list-item": {},
+        "md-button": {},
+        "md-list": {
+            "attributes": {
+                "flex": {}
+            }
+        },
+        "md-tooltip": {
+            "attributes": {
+                "md-direction": {},
+                "md-visible": {}
+            }
+        },
+        "md-input-container": {
+            "attributes": {
+                "md-no-float": {}
+            }
+        },
+        "md-content": {
+            "attributes": {
+                "class": {}
+            }
+        }
+    },
+    "attributes": {
+        "layout": {},
+        "flex": {
+            "context": "div"
+        },
+        "ng-click": {},
+        "flex-gt-xs": {},
+        "ng-repeat": {},
+        "class": {},
+        "aria-label": {}
+    }
+}

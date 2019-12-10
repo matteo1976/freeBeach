@@ -1,0 +1,157 @@
+<div class="md-dialog-container">
+    <md-dialog layout-padding arial-label="Modifica servizio">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" ng-click="confirm()">
+                    <md-icon md-svg-src="img/material.io/ic_arrow_back_24px.svg"
+                             aria-label="Close dialog">
+                    </md-icon>
+                </md-button>
+                <span flex></span>
+                <h2>Servizio</h2>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+
+        <form name="servizioForm">
+
+            <md-dialog-content class="edit-servizio">
+
+                <div layout="row" flex>
+                    <div layout="column" layout-align="center" flex>
+                        <md-input-container flex="grow">
+                            <label>Cliente</label>
+                            <input type="text" aria-label="Cliente"
+                                   value="{{::assegnamento.cliente.nome}}"
+                                   readonly>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div layout="row" flex>
+                    <div layout="column" layout-align="center" flex>
+                        <md-input-container flex="grow">
+                            <label>Postazione</label>
+                            <input type="text" aria-label="Postazione"
+                                   value="{{::postazione.getCode()}}"
+                                   readonly>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div layout="row" flex>
+                    <div layout="column" flex ng-if="acTipoServizio.readOnly === false">
+                        <md-autocomplete md-input-name="inputTipoServizio"
+                                         md-selected-item="acTipoServizio.data"
+                                         md-search-text="acTipoServizio.text"
+                                         md-items="item in acTipoServizio.find()"
+                                         md-item-text="item.descrizione"
+                                         md-match-case-insensitive="true"
+                                         md-delay="250"
+                                         md-min-length="1"
+                                         md-dropdown-items="4"
+                                         md-selected-item-change="changed()"
+                                         md-floating-label="Tipo servizio"
+                                         placeholder="Cerca per descrizione"
+                                         required>
+                            <md-item-template>
+                                <span md-highlight-text="searchText">{{item.descrizione}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                Nessun tipo servizio trovato
+                            </md-not-found>
+                            <div ng-messages="servizioForm.inputTipoServizio.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-autocomplete>
+                    </div>
+                    <div layout="column" flex ng-if="acTipoServizio.readOnly === true">
+                        <md-input-container class="immutable">
+                            <input type="text" value="{{acTipoServizio.text}}" readonly
+                                   class="disabled-md-autocomplete"
+                                   aria-label="Tipo servizio">
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div layout="row" flex>
+                    <div layout="column" flex>
+                        <md-input-container>
+                            <label>Data inizio</label>
+                            <md-datepicker name="dataInizio"
+                                           ng-model="servizio.dataInizio"
+                                           ng-change="changed()"
+                                           md-placeholder="Inserisci la data"
+                                           required>
+                            </md-datepicker>
+                            <div ng-messages="servizioForm.dataInizio.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div layout="row" flex>
+                    <div flex layout="column" flex>
+                        <md-input-container>
+                            <label>Data fine</label>
+                            <md-datepicker name="dataFine"
+                                           ng-model="servizio.dataFine"
+                                           ng-change="changed()"
+                                           md-placeholder="Inserisci la data"
+                                           required>
+                            </md-datepicker>
+                            <div ng-messages="servizioForm.dataFine.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div layout="row" flex>
+                    <div layout="column" flex="grow">
+                        <md-input-container flex="grow">
+                            <label>Quantità</label>
+                            <input type="number" name="quantita" aria-label="Quantità"
+                                   ng-model="servizio.qta"
+                                   ng-change="changed()"
+                                   required>
+                            <div ng-messages="servizioForm.quantita.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div layout="row" flex>
+                    <div layout="column" flex="grow">
+                        <md-input-container flex="grow">
+                            <label>Costo</label>
+                            <input type="number" name="costoFinale" aria-label="Quantità"
+                                   ng-model="servizio.costoFinale"
+                                   ng-change="changed()"
+                                   required>
+                            <div ng-messages="servizioForm.costoFinale.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div layout="row" flex>
+                    <div layout="column" flex="grow">
+                        <md-input-container flex="grow">
+                            <label>Note</label>
+                            <textarea name=""
+                                      ng-model="servizio.note"
+                                      ng-change="changed()"
+                                      md-maxlength="100" max-rows="3">
+                            </textarea>
+                        </md-input-container>
+                    </div>
+                </div>
+            </md-dialog-content>
+
+        </form>
+    </md-dialog>
+</div>

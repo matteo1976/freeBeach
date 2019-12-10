@@ -1,0 +1,13 @@
+# apt-get install npm
+$ cd webapp/www
+$ npm install bower
+$ node_modules/bower/bin/bower init
+$ node_modules/bower/bin/bower install angular-material --save
+$ node_modules/bower/bin/bower install ng-route --save
+  Unable to find a suitable version for angular, please choose one by typing one of the numbers below:
+  2) angular#^1.4.8 which resolved to 1.6.4 and is required by angular-material#1.1.4
+  Prefix the choice with ! to persist it to bower.json
+  !2
+$ node_modules/bower/bin/bower install ng-resource --save
+$
+

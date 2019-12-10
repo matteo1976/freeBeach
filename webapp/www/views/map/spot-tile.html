@@ -1,0 +1,20 @@
+<div ng-class="{spot: y.count > 0}">
+    <div ng-if="y.count > 0" ng-click="edit(y.element, $event)">
+        <div class="name" ng-if="displaySituation"
+             ng-class="{occupied: y.element.viewModel(mapDate).isOccupata}">
+            {{y.element.fila}}{{y.element.colonna}}
+        </div>
+        <div class="name" ng-if="displayAvailability"
+             ng-class="{available: y.element.getDisponibilita(freeFrom, freeTo) === 'full'}"
+             ng-class="{partially-available: y.element.getDisponibilita(freeFrom, freeTo) === 'partial'}">
+            {{y.element.fila}}{{y.element.colonna}}
+        </div>
+        <div class="customer">
+            {{y.element.viewModel(mapDate).nomeCliente}}
+        </div>
+        <div class="period">
+            {{y.element.viewModel(mapDate).inizioAssegnamento | date : "d/M"}}
+            {{y.element.viewModel(mapDate).fineAssegnamento | date : "d/M"}}
+        </div>
+    </div>
+</div>

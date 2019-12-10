@@ -1,0 +1,243 @@
+<div class="md-dialog-container">
+    <md-dialog layout-padding arial-label="Modifica assegnamento postazione">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <div layout="row" flex>
+                    <div layout="column" flex="none">
+                        <md-button class="md-icon-button" ng-click="confirm()">
+                            <md-icon md-svg-src="img/material.io/ic_arrow_back_24px.svg"
+                                     aria-label="Close dialog">
+                            </md-icon>
+                        </md-button>
+                    </div>
+                    <div layout="column" layout-align="center center" flex="grow">
+                        <h2>Assegna postazione</h2>
+                    </div>
+                    <div layout="column" flex="none">
+                        <md-button class="md-icon-button" ng-click="addService($event)"
+                                   ng-disabled="!isUpdate">
+                            <md-icon md-svg-icon="img/material.io/ic_shopping_basket_24px.svg"
+                                     aria-label="Aggiungi un servizio">
+                            </md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content class="edit-assignment">
+            <md-tabs>
+
+                <md-tab label="Dati assegnamento">
+                    <form name="assegnamentoForm">
+                        <div layout="row" flex>
+                            <div layout="column" flex ng-if="acPostazione.readOnly === false">
+                                <md-autocomplete md-input-name="inputPostazione"
+                                                 md-selected-item="acPostazione.data"
+                                                 md-search-text="acPostazione.text"
+                                                 md-items="item in acPostazione.find()"
+                                                 md-item-text="item.getCode()"
+                                                 md-match-case-insensitive="true"
+                                                 md-delay="250"
+                                                 md-min-length="1"
+                                                 md-dropdown-items="4"
+                                                 md-selected-item-change="changed()"
+                                                 md-floating-label="Codice postazione"
+                                                 placeholder="Cerca per codice"
+                                                 required>
+                                    <md-item-template>
+                                        <span md-highlight-text="searchText">{{item.getCode()}}</span>
+                                    </md-item-template>
+                                    <md-not-found>
+                                        Nessuna postazione trovata
+                                    </md-not-found>
+                                    <div ng-messages="assegnamentoForm.inputPostazione.$error">
+                                        <div ng-message="required">Dato richiesto</div>
+                                    </div>
+                                </md-autocomplete>
+                            </div>
+                            <div flex layout="column" ng-if="acPostazione.readOnly === true">
+                                <md-input-container class="immutable">
+                                    <input type="text" value="{{acPostazione.text}}" readonly
+                                           class="disabled-md-autocomplete"
+                                           aria-label="Codice postazione">
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div layout="row" flex>
+                            <div flex layout="column" ng-if="acCliente.readOnly === false">
+                                <md-autocomplete md-input-name="inputCliente"
+                                                 md-selected-item="acCliente.data"
+                                                 md-search-text="acCliente.text"
+                                                 md-items="item in acCliente.find()"
+                                                 md-item-text="item.nome"
+                                                 md-match-case-insensitive="true"
+                                                 md-delay="250"
+                                                 md-min-length="2"
+                                                 md-dropdown-items="4"
+                                                 md-selected-item-change="changed()"
+                                                 md-floating-label="Cliente"
+                                                 placeholder="Cerca per nome"
+                                                 required>
+                                    <md-item-template>
+                                        <span md-highlight-text="searchText">{{item.nome}}</span>
+                                    </md-item-template>
+                                    <md-not-found>
+                                        Nessun cliente trovato
+                                    </md-not-found>
+                                    <div ng-messages="assegnamentoForm.inputCliente.$error">
+                                        <div ng-message="required">Dato richiesto</div>
+                                    </div>
+                                </md-autocomplete>
+                            </div>
+                            <div ng-if="cliente.readOnly === true">
+                                <md-input-container class="immutable">
+                                    <input type="text" value="{{acCliente.text}}" readonly
+                                           class="disabled-md-autocomplete"
+                                           aria-label="Nome cliente">
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div layout="row" flex>
+                            <div flex layout="column">
+                                <md-input-container>
+                                    <label>Data inizio</label>
+                                    <md-datepicker name="dataInizio"
+                                                   ng-model="assegnamento.dataInizio"
+                                                   ng-change="changed()"
+                                                   md-placeholder="Inserisci la data"
+                                                   required>
+                                    </md-datepicker>
+                                    <div ng-messages="assegnamentoForm.dataInizio.$error">
+                                        <div ng-message="required">Dato richiesto</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div layout="row" flex>
+                            <div flex layout="column">
+                                <md-input-container>
+                                    <label>Data fine</label>
+                                    <md-datepicker name="dataFine"
+                                                   ng-model="assegnamento.dataFine"
+                                                   ng-change="changed()"
+                                                   md-placeholder="Inserisci la data"
+                                                   required>
+                                    </md-datepicker>
+                                    <div ng-messages="assegnamentoForm.dataFine.$error">
+                                        <div ng-message="required">Dato richiesto</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div layout="row" flex>
+                            <div layout="column" flex>
+                                <md-input-container>
+                                    <label>Abbonamento</label>
+                                    <md-select name="abbonamento"
+                                               aria-label="Abbonamento"
+                                               md-no-asterisk="true"
+                                               placeholder="Seleziona"
+                                               ng-model="assegnamento.abbonamento"
+                                               ng-model-options="{trackBy: '$value.idAbbonamento'}"
+                                               ng-change="changed()"
+                                               required>
+                                        <md-option ng-value="opt" ng-repeat="opt in abbonamenti">
+                                            {{ opt.codice}}
+                                        </md-option>
+                                    </md-select>
+                                    <div ng-messages="assegnamentoForm.abbonamento.$error">
+                                        <div ng-message="required">Dato richiesto</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div layout="row" flex>
+                            <div layout="column" flex="grow">
+                                <md-input-container flex="grow">
+                                    <label>Autorizzati</label>
+                                    <textarea name=""
+                                              ng-model="assegnamento.autorizzati"
+                                              ng-change="changed()"
+                                              md-maxlength="100" max-rows="3">
+                                    </textarea>
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div layout="row" flex>
+                            <div layout="column" flex="grow">
+                                <md-input-container flex="grow">
+                                    <label>Note</label>
+                                    <textarea name=""
+                                              ng-model="assegnamento.note"
+                                              ng-change="changed()"
+                                              md-maxlength="100" max-rows="3">
+                                    </textarea>
+                                </md-input-container>
+                            </div>
+                        </div>
+                    </form>
+                </md-tab>
+
+                <md-tab label="Servizi" md-on-select="refreshServizi()">
+                    <div class="table-content" ng-if="assegnamento.hasServizi()">
+                        <div layout="row" class="table-content-header">
+                            <div layout="column" layout-align="center" flex>
+                                Periodo
+                            </div>
+                            <div layout="column" layout-align="center" flex>
+                                Servizio
+                            </div>
+                            <div layout="column" layout-align="center" flex>
+                                Quantità
+                            </div>
+                            <div layout="column" layout-align="center" flex>
+                                Costo
+                            </div>
+                            <div layout="column" flex="none" style="width: 34px;">
+                            </div>
+                        </div>
+                        <div class="table-content-scroll">
+                            <div ng-repeat="servizio in assegnamento.servizi"
+                                 layout="row" flex>
+                                <div layout="column" layout-align="center" flex>
+                                    {{servizio.dataInizio| date : "d/M"}}
+                                    -
+                                    {{servizio.dataFine| date : "d/M"}}
+                                </div>
+                                <div layout="column" layout-align="center" flex>
+                                    {{servizio.tipoServizio.descrizione}}
+                                </div>
+                                <div layout="column" layout-align="center" flex>
+                                    {{servizio.qta}}
+                                </div>
+                                <div layout="column" layout-align="center" flex>
+                                    {{servizio.costoFinale}}
+                                </div>
+                                <div layout="column" layout-align="center" flex="none">
+                                    <md-icon md-svg-icon="img/material.io/ic_mode_edit_24px.svg"
+                                             ng-click="editService($event, servizio)">
+                                    </md-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div layout="row" flex="grow" ng-if="!assegnamento.hasServizi()"
+                         style="height: 100%;">
+                        <div layout="column" layout-align="center center" flex="grow">
+                            Nessun servizio trovato
+                        </div>
+                    </div>
+
+                </md-tab>
+
+            </md-tabs>
+        </md-dialog-content>
+    </md-dialog>
+</div>

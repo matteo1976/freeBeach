@@ -1,0 +1,13 @@
+{
+    "name": "bs/backend",
+    "type": "pro",
+    "minimum-stability": "dev",
+    "require": {
+        "propel/propel": "~2.0@dev",
+        "slim/slim": "3.*",
+        "monolog/monolog": "1.*"
+    },
+    "autoload": {
+        "classmap": ["generated-class/"] 
+    } 
+}

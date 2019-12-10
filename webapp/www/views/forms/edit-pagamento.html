@@ -1,0 +1,68 @@
+<div class="md-dialog-container">
+    <md-dialog layout-padding arial-label="Registra pagamento">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <div layout="row" flex>
+                    <div layout="column" flex="none">
+                        <md-button class="md-icon-button" ng-click="confirm()">
+                            <md-icon md-svg-src="img/material.io/ic_arrow_back_24px.svg"
+                                     aria-label="Close dialog">
+                            </md-icon>
+                        </md-button>
+                    </div>
+                    <div layout="column" layout-align="center center" flex="grow">
+                        <h2>{{::"Pagamento " + cliente.nome}}</h2>
+                    </div>
+                </div>
+
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content class="edit-pagamento">
+
+            <form name="paymentForm">
+
+                <div flex layout="row" flex>
+                    <div layout="column" layout-align="start" flex="grow">
+                        <md-input-container>
+                            <label>Data</label>
+                            <md-datepicker name="data" ng-model="pagamento.data"
+                                           ng-change="changed()"
+                                           md-placeholder="Inserisci la data"
+                                           required>
+                            </md-datepicker>
+                            <div ng-messages="paymentForm.data.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div flex layout="row" flex>
+                    <div layout="column" layout-align="start" flex="grow">
+                        <md-input-container>
+                            <label>Importo</label>
+                            <input type="text" name="importo"
+                                   ng-model="pagamento.importo"
+                                   ng-change="changed()"
+                                   required maxlength="10">
+                            <div ng-messages="paymentForm.importo.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div flex layout="row" flex>
+                    <div layout="column" layout-align="start" flex="grow">
+                        <md-input-container>
+                            <md-switch ng-model="aggiornaDebito" aria-label="Aggiorna il conto">
+                                Aggiorna il conto
+                            </md-switch>
+                        </md-input-container>
+                    </div>
+                </div>
+
+            </form>
+    </md-dialog>
+</div>

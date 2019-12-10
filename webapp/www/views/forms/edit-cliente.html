@@ -1,0 +1,294 @@
+<div class="md-dialog-container">
+    <md-dialog layout-padding arial-label="Modifica cliente">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <div layout="row" flex>
+                    <div layout="column" flex="none">
+                        <md-button class="md-icon-button" ng-click="confirm()">
+                            <md-icon md-svg-src="img/material.io/ic_arrow_back_24px.svg"
+                                     aria-label="Close dialog">
+                            </md-icon>
+                        </md-button>
+                    </div>
+                    <div layout="column" layout-align="center center" flex="grow">
+                        <h2>{{::getTitolo()}}</h2>
+                    </div>
+                    <div layout="column" flex="none">
+                        <md-button class="md-icon-button" ng-click="assign($event)"
+                                   ng-disabled="!isUpdate">
+                            <md-icon md-svg-src="img/material.io/ic_beach_access_24px.svg"
+                                     aria-label="Assegna una postazione">
+                            </md-icon>
+                        </md-button>
+                    </div>
+                    <div layout="column" flex="none">
+                        <md-button class="md-icon-button" ng-click="pay($event)"
+                                   ng-disabled="!isUpdate">
+                            <md-icon md-svg-src="img/material.io/ic_credit_card_24px.svg"
+                                     aria-label="Registra un pagamento">
+                            </md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content class="edit-customer">
+            <md-tabs>
+
+                <md-tab label="Anagrafica">
+
+                    <form name="customerForm">
+
+                        <md-input-container>
+                            <label>Nome</label>
+                            <input type="text" name="nome"
+                                   ng-model="cliente.nome"
+                                   ng-change="changed()"
+                                   required maxlength="45">
+                            <div ng-messages="customerForm.nome.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Indirizzo</label>
+                            <input type="text" name="indirizzo"
+                                   ng-model="cliente.indirizzo"
+                                   ng-change="changed()"
+                                   required maxlength="100">
+                            <div ng-messages="customerForm.indirizzo.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>CAP</label>
+                            <input type="text" name="cap"
+                                   ng-model="cliente.cap"
+                                   ng-change="changed()"
+                                   required maxlength="10">
+                            <div ng-messages="customerForm.cap.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Citta</label>
+                            <input type="text" name="citta"
+                                   ng-model="cliente.citta"
+                                   ng-change="changed()"
+                                   required maxlength="45">
+                            <div ng-messages="customerForm.citta.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Provincia</label>
+                            <input type="text" name="provincia"
+                                   ng-model="cliente.provincia"
+                                   ng-change="changed()"
+                                   required maxlength="45">
+                            <div ng-messages="customerForm.provincia.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Stato</label>
+                            <input type="text" name="stato"
+                                   ng-model="cliente.stato"
+                                   ng-change="changed()"
+                                   required maxlength="45">
+                            <div ng-messages="customerForm.stato.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Codice fiscale</label>
+                            <input type="text" name="codiceFiscale"
+                                   ng-model="cliente.codiceFiscale"
+                                   ng-change="changed()"
+                                   required maxlength="16">
+                            <div ng-messages="customerForm.codiceFiscale.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Telefono</label>
+                            <input type="text" name="telefono"
+                                   ng-model="cliente.telefono"
+                                   ng-change="changed()"
+                                   required maxlength="45">
+                            <div ng-messages="customerForm.telefono.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Email</label>
+                            <input type="text" name="email"
+                                   ng-model="cliente.email"
+                                   ng-change="changed()"
+                                   required minlength="5" maxlength="45"
+                                   ng-pattern="/^.+@.+\..+$/">
+                            <div ng-messages="customerForm.email.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+
+                        <!--<md-input-container>
+                            <md-switch ng-model="cliente.abilitato"
+                                       ng-change="changed()"
+                                       aria-label="Abilita il cliente">
+                                Abilitato
+                            </md-switch>
+                        </md-input-container>-->
+
+                        <div layout="column" flex>
+                            <md-input-container>
+                                <label>Da saldare</label>
+                                <input type="number" ng-model="cliente.daSaldare"
+                                       ng-change="changed()">
+                            </md-input-container>
+                        </div>
+
+                        <div layout="row">
+                            <div layout="column" flex>
+                                <md-input-container>
+                                    <label>Note</label>
+                                    <textarea name="" ng-model="cliente.note"
+                                              ng-change="changed()"
+                                              md-maxlength="100" max-rows="3">
+                                    </textarea>
+                                    <div ng-messages="customerForm.note.$error">
+                                        <div ng-message="maxlength">
+                                            Lunghezza massima consentita 100 caratteri
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <!-- Utilità???
+                    <div layout="row" flex>
+                        <div layout="column" flex>
+                            <div ng-if="angular.isObject(assegnamento)">
+                                <md-icon md-svg-icon="img/material.io/ic_beach_access_24px.svg">
+                                </md-icon>
+                                <div>
+                                    {{assegnamento.postazione.fila + assegnamento.postazione.colonna}}
+                                </div>
+                                <div>
+                                    {{assegnamento.abbonamento.codice}}
+                                </div>
+                                <div >
+                                    {{assegnamento.dataInizio| date: "d/M"}}
+                                    -
+                                    {{assegnamento.dataFine| date: "d/M"}}
+                                </div>
+                            </div>
+                            <div ng-if="!angular.isObject(assegnamento)">
+                                Nessuna postazione assegnata
+                            </div>
+                        </div>
+                        <div layout="column" flex>
+                            <md-input-container>
+                                <label>Da saldare</label>
+                                <input type="text" ng-model="cliente.daSaldare">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    -->
+                </md-tab>
+
+                <md-tab label="Assegnamenti" md-on-select="refreshAssegnamenti()">
+                    <div class="table-content" ng-if="cliente.hasAssegnamenti()">
+                        <div layout="row" class="table-content-header">
+                            <div layout="column" layout-align="center" flex>
+                                Periodo
+                            </div>
+                            <div layout="column" layout-align="center" flex>
+                                Postazione
+                            </div>
+                            <div layout="column" layout-align="center" flex>
+                                Abbonamento
+                            </div>
+                            <div layout="column" flex="none" style="width: 34px;">
+                            </div>
+                        </div>
+                        <div class="table-content-scroll">
+                            <div ng-repeat="assegnamento in cliente.assegnamenti"
+                                 layout="row" flex>
+                                <div layout="column" layout-align="center" flex>
+                                    {{assegnamento.dataInizio| date : "d/M"}}
+                                    -
+                                    {{assegnamento.dataFine| date : "d/M"}}
+                                </div>
+                                <div layout="column" layout-align="center" flex>
+                                    {{assegnamento.postazione.fila + assegnamento.postazione.colonna}}
+                                </div>
+                                <div layout="column" layout-align="center" flex>
+                                    {{assegnamento.abbonamento.codice}}
+                                </div>
+                                <div layout="column" layout-align="center" flex="none">
+                                    <md-icon md-svg-icon="img/material.io/ic_mode_edit_24px.svg"
+                                             ng-click="editAssegnamento($event, assegnamento)">
+                                    </md-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div layout="row" flex="grow" ng-if="!cliente.hasAssegnamenti()"
+                         style="height: 100%;">
+                        <div layout="column" layout-align="center center" flex="grow">
+                            Nessun assegnamento trovato
+                        </div>
+                    </div>
+                </md-tab>
+
+                <md-tab label="Pagamenti">
+                    <div class="table-content" ng-if="cliente.hasPagamenti()">
+                        <div layout="row" class="table-content-header">
+                            <div layout="column" layout-align="center" flex>
+                                Data
+                            </div>
+                            <div layout="column" layout-align="center" flex>
+                                Importo
+                            </div>
+                            <div layout="column" flex="none" style="width: 34px;">
+                            </div>
+                        </div>
+                        <div class="table-content-scroll">
+                            <div ng-repeat="pagamento in cliente.pagamenti"
+                                 layout="row" flex>
+                                <div layout="column" layout-align="center" flex>
+                                    {{pagamento.data| date : "d/M"}}
+                                </div>
+                                <div layout="column" layout-align="center" flex>
+                                    {{pagamento.importo}}
+                                </div>
+                                <div layout="column" layout-align="center" flex="none">
+                                    <md-icon md-svg-icon="img/material.io/ic_mode_edit_24px.svg"
+                                             ng-click="editPagamento($event, pagamento)">
+                                    </md-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div layout="row" flex="grow" ng-if="!cliente.hasPagamenti()"
+                         style="height: 100%;">
+                        <div layout="column" layout-align="center center" flex="grow">
+                            Nessun pagamento trovato
+                        </div>
+                    </div>
+            </md-tabs>
+        </md-dialog-content>
+
+    </md-dialog>
+</div>

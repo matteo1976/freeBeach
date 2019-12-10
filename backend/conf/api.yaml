@@ -1,0 +1,2565 @@
+swagger: '2.0'
+
+info:
+  title: BeachSeat API
+  description: API per programma gestione spiaggie
+  version: "1.4.1"
+
+# CHANGELOG
+
+# 2017-06-28 api   modificata campi disp_inizio e disp_fine in assegn_inizio e assegn_fine
+# 2017-06-21 api    modificata la rotta dei servizi da postazioni/{idpostazione}/servizi 
+#                   a /postazioni/{idPostazione}/assegnamenti/{idAssegnamento}/servizi
+# 2017-06-18 api    Aggiunto servizi ad AssegnamentoPostazione
+# 2017-06-18 api    In servizio sostituito IdPostazione con IdAssegnamentoPostazione
+# 2017-06-18 api    Aggiunti parametri disp_inizio e disp_fine per  clienti e postazioni   
+# 2017-06-18 api    CostoServizio modificato campo costoServizio in costo
+# 2017-06-18 api    modificata la rotta tipiServizio in tipoServizi
+# 2017-06-17 dba    Revisione (Operatori -> Operatore, rimosso abbonamento
+#                   da postazione, commentato temporaneamente sessione)
+# 2017-06-14 api    Inserito idAssegnamento in AssegnamentoPostazione
+# 2017-06-14 api    Inserito idDisponibilita in DisponibilitaPostazione
+# 2017-06-14 api    Inserito idSubaffitto in SubaffittoPostazione
+# 2017-06-14 api    AssegnamentoPostazione tolto array da abbonamento
+# 2017-06-14 api    AssegnamentoPostazione tolto array da cliente
+# 2017-06-14 api    Aggiunto array Autorizzati 
+# 2017-06-13 api    Modificato oggetto Account in Operatori
+# 2017-06-13 api    Modificato idAccount in idOperatore
+# 2017-06-13 api    Modificate le rotte di account in operatori
+# 2017-06-13 api    Aggiunto AccountSessione per la sessione
+# 2017-06-11 dba    Piccole correzioni
+# 2017-05-27 dba    Aggiunto x e y alla postazione
+# 2017-05-22 api    Inseriti cliente e abbonamento in assegnamentoPostazione
+# 2017-05-22 dba    Aggiunta tabella pagamenti
+# 2017-05-22 api    Aggiunta clienti/{idCliente/pagamenti
+# 2017-05-22 api    Aggiunta clienti/{idCliente/pagamenti/{idPagamento}
+# 2017-05-16 api    corretti alcuni errori
+# 2017-05-15 dba    Corretto /costiServizo in /costiServizio
+# 2017-05-15 dba    Corretto data-time in date-time
+# 2017-05-15 api    Inserita la DELETE in clienti/{idCliente}/postazioni/{idPostazione}
+# 2017-05-15 api    Inseritala POST in clienti/{idCliente}/postazioni/{idPostazione}
+# 2017-05-15 api    Eliminatala POST in clienti/{idCliente}/postazioni/
+# 2017-05-15 api    Modificata oggetto restituito clienti/{idCliente}/postazioni/{idPostazione}
+#                   per la POST e la DELETE da postazioni a AssegnamentoPostazione               
+# 2017-05-12 dba    Eliminata TipoAbbonamento e lasciato solo Abbonamenti
+# 2017-05-12 api    Corretto Servizio
+# 2017-05-12 api    Aggiunto Tipi_Servizio
+# 2017-05-12 api    Aggiunto Costi_Servizio
+# 2017-05-12 api    Aggiunto /tipoServizio
+# 2017-05-12 api    Aggiunto /tipoServizio/{idTipoServizio}
+# 2017-05-12 api    Aggiunto /tipoServizio/{idTipoServizio}/costiServizio
+# 2017-05-12 api    Aggiunto /tipoServizio/{idTipoServizio}/costiServizio/{idCostoServizio}
+# 2017-05-12 api    Aggiunto note a assegnamenti
+# 2017-05-12 api    corretti vari errori tag    
+# 2017-04-16 dba    Aggiunto abbonamenti
+# 2017-04-16 dba    Sostituito operatori con account
+# 2017-04-16 dba    Aggiunto endpoint per info web service
+# 2017-04-16 dba    Aggiunto endpoint per gestione sessione
+
+host: api.sb.local
+schemes:
+#  - https
+  - http
+produces:
+  - application/json
+
+paths:
+
+  /info:
+    get:
+      description: Restituisce informazioni e versione del web service
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Versione del web service
+          schema:
+            $ref: '#/definitions/Info'
+          
+#  /sessione:
+#    post:
+#      description: Autenticazione account
+#      consumes:
+#        - application/json
+#      produces:
+#        - application/json
+#     parameters:
+#       - name: credenziali
+#         in: body
+#         description: Credenziali dell'utente
+#         schema:
+#           required:
+#             - username
+#             - password
+#           properties:
+#             username:
+#               type: string
+#             password:
+#               type: string
+#     responses:
+#       200:
+#         description: Credenziali riconosciute e account attivo
+#         schema:
+#           $ref: '#/definitions/Account'
+#       401:
+#         description: Credenziali non valide
+#   delete:
+#     description: Termina la sessione del client API
+#     responses:
+#       200:
+#         description: |
+#           La sessione HTTP viene distrutta. Se la sessione non esiste più,
+#           **non** segnala errore al client.
+
+############################################################################
+
+  /profili:
+    get:
+      tags:
+        - Profilo
+      description: Restituisce la lista degli oggetti `Profilo` definiti
+      produces:
+        - application/json
+      parameters:
+        - name: filtro
+          in: query
+          description: Stringa utilizzata per ricerca **like** sulla descrizione del profilo
+          required: false
+          type: string
+      responses:
+        200:
+          description: Elenco dei profili che contengono la chiave fornita nella descrizione
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Profilo'
+        500:
+          $ref: '#/responses/InternalServerError'
+    post:
+      tags:
+        - Profilo
+      description: Crea un nuovo `Profilo`
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: profilo
+          in: body
+          description: Profilo da creare
+          required: true
+          schema:
+           $ref: '#/definitions/Profilo'
+      responses:
+        201:
+          description: Profilo creato. Restituisce anche l'id assegnato
+          schema:
+              $ref: '#/definitions/Profilo'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /profili/{idProfilo}:
+    parameters:
+      - $ref: '#/parameters/idProfilo'
+    get:
+      tags:
+        - Profilo
+      description: Restituisce l'anagrafica del `Profilo`
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce l'anagrafica del profilo
+          schema:
+            $ref: '#/definitions/Profilo'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    put:
+      tags:
+        - Profilo
+      description: Aggiorna il `Profilo`. L'id fornito sulla rotta sovrascrive quello possibilmente dichiarato nel body
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: profilo
+          in: body
+          description: Nuova anagrafica del `Profilo`
+          required: true
+          schema:
+           $ref: '#/definitions/Profilo'
+      responses:
+        200:
+          description: Restituisce il `Profilo` aggiornato
+          schema:
+              $ref: '#/definitions/Profilo'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    delete:
+      tags:
+        - Profilo
+      description: Cancella un `Profilo`
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce il Profilo cancellato
+          schema:
+              $ref: '#/definitions/Profilo'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'          
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+############################################################################
+
+  /postazioni:
+    get:
+      tags:
+        - Postazione
+      description: Restituisce la lista delle postazioni che soddisfano i criteri di ricerca
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/assegn_inizio'
+        - $ref: '#/parameters/assegn_fine'
+        - name: settore
+          in: query
+          description: Esegue un match **like** sul settore della postazione
+          type: string
+          required: false
+        - name: fila
+          in: query
+          description: Esegue un match **like** sulla fila della postazione
+          type: string
+          required: false
+        - name: colonna
+          in: query
+          description: Esegue un match **like** sulla colonna della postazione
+          type: string
+          required: false
+        - name: chiave
+          in: query
+          description: Esegue un match **like** sul ......... ***TODO***!!!
+          type: string
+          required: false
+      responses:
+        200:
+          description: Lista deelle postazioni
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Postazione'
+        500:
+          $ref: '#/responses/InternalServerError'
+    post:
+      tags:
+        - Postazione
+      description: Crea una postazione
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: postazione
+          in: body
+          description: Postazione da creare
+          required: true
+          schema:
+           $ref: '#/definitions/Postazione'
+      responses:
+        201:
+          description: Restituisce la postazione creata
+          schema:
+              $ref: '#/definitions/Postazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+ 
+  /postazioni/{idPostazione}:
+    parameters:
+      - $ref: '#/parameters/idPostazione'
+      - $ref: '#/parameters/assegn_inizio'
+      - $ref: '#/parameters/assegn_fine'
+    get:
+      tags:
+        - Postazione
+      description: Restituisce l'anagrafica della `Postazione`
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce l'anagrafica della postazione
+          schema:
+            $ref: '#/definitions/Postazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    put:
+      tags:
+        - Postazione
+      description: Aggiorna la `Postazione`
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: postazione
+          in: body
+          description: Postazione da creare
+          required: true
+          schema:
+           $ref: '#/definitions/Postazione'
+      responses:
+        200:
+          description: Restituisce la postazione aggiornata
+          schema:
+              $ref: '#/definitions/Postazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    delete:
+      tags:
+        - Postazione
+      description: Elimina la `Postazione`
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce la postazione cancellata
+          schema:
+              $ref: '#/definitions/Postazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /postazioni/{idPostazione}/assegnamenti:
+    parameters:
+      - $ref: '#/parameters/idPostazione'
+    get:
+      tags:
+        - Postazione
+        - Assegnamento
+      description: Restituisce gli assegnamenti della postazione
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/dataInizio'
+        - $ref: '#/parameters/dataFine'
+      responses:
+        200:
+          description: Elenco degli assegnamenti della postazione
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AssegnamentoPostazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    post:
+      tags:
+        - Postazione
+        - Assegnamento
+      description: Assegna la postazione
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: assegnamento
+          in: body
+          description: Periodi di assegnamento della postazione
+          required: true
+          schema:
+           $ref: '#/definitions/AssegnamentoPostazione'
+      responses:
+        201:
+          description: Restituisce l'assegnamento creato
+          schema:
+              $ref: '#/definitions/AssegnamentoPostazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /postazioni/{idPostazione}/assegnamenti/{idAssegnamento}:
+    parameters:
+      - $ref: '#/parameters/idPostazione'
+      - $ref: '#/parameters/idAssegnamento'
+    get:
+      tags:
+        - Postazione
+        - Assegnamento
+      description: Restituisce l'assegnamento della postazione
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce l'assegnamento della postazione
+          schema:
+            $ref: '#/definitions/AssegnamentoPostazione'
+        400:
+          description: Id postazioneo assegnamento non validi
+          schema:
+            $ref:  '#/definitions/Error'
+        404:
+          description: Postazione non trovata
+        500:
+          $ref: '#/responses/InternalServerError'
+    put:
+      tags:
+        - Postazione
+        - Assegnamento
+      description: Aggiorna l'assegnamento
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: assegnamento
+          in: body
+          description: Assegnamento della postazione
+          required: true
+          schema:
+           $ref: '#/definitions/AssegnamentoPostazione'
+      responses:
+        200:
+          description: Restituisce l'assegnamento aggiornato
+          schema:
+              $ref: '#/definitions/AssegnamentoPostazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    delete:
+      tags:
+        - Postazione
+        - Assegnamento
+      description: Cancella l'assegnamento la postazione. ***TODO*** Come gestiamo eventuali dati collegati alla postazione e già registrati?
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce l'assegnamento cancellato
+          schema:
+              $ref: '#/definitions/AssegnamentoPostazione'
+        400:
+          description: Errore di validazione dei dati forniti
+          schema:
+            $ref:  '#/definitions/Error'
+        404:
+          description: Assegnamento non trovato
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /postazioni/{idPostazione}/assegnamenti/{idAssegnamento}/disponibilita:
+    parameters: 
+      - $ref: '#/parameters/idPostazione'
+      - $ref: '#/parameters/idAssegnamento'
+    get:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Disponibilità
+      description: Restituisce le disponibilità della postazione
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Lista delle disponibilità
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/DisponibilitaPostazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        500:
+          $ref: '#/responses/InternalServerError'
+    post:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Disponibilità
+      description: Aggiunge una disponibilità della postazione
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: disponibilita
+          in: body
+          description: Periodo di disponibilità della postazione
+          required: true
+          schema:
+           $ref: '#/definitions/DisponibilitaPostazione'
+      responses:
+        200:
+          description: Restituisce la disponibilità creata
+          schema:
+            $ref: '#/definitions/DisponibilitaPostazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Disponibilità
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /postazioni/{idPostazione}/assegnamenti/{idAssegnamento}/disponibilita/{idDisponibilita}:
+    parameters:
+      - $ref: '#/parameters/idPostazione'
+      - $ref: '#/parameters/idAssegnamento'
+      - $ref: '#/parameters/idDisponibilita'
+    get:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Disponibilità
+      description: Restituisce la disponibilità della postazione
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce la disponibilità
+          schema:
+            $ref: '#/definitions/DisponibilitaPostazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    put:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Disponibilità
+      description: Aggiorna la disponibilità della postazione
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: disponibilita
+          in: body
+          description: Disponibilità della postazione
+          required: true
+          schema:
+           $ref: '#/definitions/DisponibilitaPostazione'
+      responses:
+        200:
+          description: Restituisce la disponibilità aggiornata
+          schema:
+              $ref: '#/definitions/DisponibilitaPostazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    delete:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Disponibilità
+      description: Cancella la disponibilità della postazione. ***TODO*** Come gestiamo eventuali subaffitti già registrati?
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce la disponibilità cancellato
+          schema:
+              $ref: '#/definitions/DisponibilitaPostazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /postazioni/{idPostazione}/assegnamenti/{idAssegnamento}/disponibilita/{idDisponibilita}/subaffitti:
+    parameters: 
+      - $ref: '#/parameters/idPostazione'
+      - $ref: '#/parameters/idAssegnamento'
+      - $ref: '#/parameters/idDisponibilita'
+    get:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Disponibilità
+        - Subaffitto
+      description: Restituisce i subaffitti della postazione
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Lista delle disponibilità
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SubaffittoPostazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    post:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Disponibilità
+        - Subaffitto
+      description: Aggiunge un subaffitto alla postazione
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: subaffitto
+          in: body
+          description: Periodo subaffittato
+          required: true
+          schema:
+           $ref: '#/definitions/SubaffittoPostazione'
+      responses:
+        200:
+          description: Restituisce il subaffitto creato
+          schema:
+            $ref: '#/definitions/SubaffittoPostazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Disponibilità
+        - Subaffitto
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /postazioni/{idPostazione}/assegnamenti/{idAssegnamento}/disponibilita/{idDisponibilita}/subaffitti/{idSubaffitto}:
+    parameters:
+      - $ref: '#/parameters/idPostazione'
+      - $ref: '#/parameters/idAssegnamento'
+      - $ref: '#/parameters/idDisponibilita'
+      - $ref: '#/parameters/idSubaffitto'
+    get:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Disponibilità
+        - Subaffitto
+      description: Restituisce il subaffitto della postazione
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce il subaffitto
+          schema:
+            $ref: '#/definitions/SubaffittoPostazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    put:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Disponibilità
+        - Subaffitto
+      description: Aggiorna il subaffitto della postazione
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: subaffitto
+          in: body
+          description: Subaffitto della postazione
+          required: true
+          schema:
+            $ref: '#/definitions/DisponibilitaPostazione'
+      responses:
+        200:
+          description: Restituisce il Subaffitto aggiornato
+          schema:
+            $ref: '#/definitions/DisponibilitaPostazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    delete:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Disponibilità
+        - Subaffitto
+      description: Cancella il subaffitto della postazione
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce il subaffitto cancellato
+          schema:
+            $ref: '#/definitions/SubaffittoPostazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /postazioni/{idPostazione}/assegnamenti/{idAssegnamento}/servizi:
+    parameters:
+      - $ref: '#/parameters/idPostazione'
+      - $ref: '#/parameters/idAssegnamento'
+    get:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Servizio
+      description: |
+        Restituisce i servizi della postazione. 
+        solo dopo che questa e' stata assegnata
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/dataInizio'
+        - $ref: '#/parameters/dataFine'
+      responses:
+        200:
+          description: Lista dei servizi consumati dalla postazione assegnata
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Servizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    post:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Servizio
+      description: Aggiunge un servizio sulla postazione
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: servizio
+          in: body
+          description: Servizio consumato
+          required: true
+          schema:
+           $ref: '#/definitions/Servizio'
+      responses:
+        201:
+          description: Restituisce il servizio creato
+          schema:
+              $ref: '#/definitions/Servizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /postazioni/{idPostazione}/assegnamenti/{idAssegnamento}/servizi/{idServizio}:
+    parameters:
+      - $ref: '#/parameters/idPostazione'
+      - $ref: '#/parameters/idAssegnamento'
+      - $ref: '#/parameters/idServizio'
+    get:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Servizio
+      description: Restituisce il servizio della postazione assegnata
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce il servizio della postazione assegnata
+          schema:
+            $ref: '#/definitions/Servizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    put:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Servizio
+      description: Aggiorna il servizio della postazione assegnata
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: servizio
+          in: body
+          description: Servizio della postazione assegnata
+          required: true
+          schema:
+            $ref: '#/definitions/Servizio'
+      responses:
+        200:
+          description: Restituisce il servizio aggiornato
+          schema:
+            $ref: '#/definitions/Servizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    delete:
+      tags:
+        - Postazione
+        - Assegnamento
+        - Servizio
+      description: Cancella il servizio della postazione assegnata
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce il servizio cancellato
+          schema:
+            $ref: '#/definitions/Servizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+          
+############################################################################
+
+  /tipiServizio:
+    get:
+      tags:
+        - TipoServizio
+      description: |
+        Restituisce il tipo servizi. 
+      produces:
+        - application/json
+      parameters:
+        - name: filtro
+          in: query
+          description: ricerca su campo descrizione
+          required: false
+          type: string
+      responses:
+        200:
+          description: Lista delle tipologie dei servizi
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TipoServizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    post:
+      tags:
+        - TipoServizio
+      description: Aggiunge una tipologia di servizio
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: tipoServizio
+          in: body
+          description: Tipo di Servizio consumato
+          required: true
+          schema:
+           $ref: '#/definitions/TipoServizio'
+      responses:
+        201:
+          description: Restituisce la tipologia del servizio creato compresa di id
+          schema:
+              $ref: '#/definitions/TipoServizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /tipiServizio/{idTipoServizio}:
+    parameters:
+      - $ref: '#/parameters/idTipoServizio'
+    get:
+      tags:
+        - TipoServizio
+      description: Restituisce una tipologia di servizi
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce una tipologia di servizi
+          schema:
+            $ref: '#/definitions/TipoServizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    put:
+      tags:
+        - TipoServizio
+      description: Aggiorna la tipologia di un servizio
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: tipoServizio
+          in: body
+          description: Servizio della postazione
+          required: true
+          schema:
+            $ref: '#/definitions/TipoServizio'
+      responses:
+        200:
+          description: Restituisce la tipologia di un servizio aggiornata
+          schema:
+            $ref: '#/definitions/TipoServizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    delete:
+      tags:
+        - TipoServizio
+      description: Cancella la tipologia di un servizio
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce la tipologia di un servizio cancellata
+          schema:
+            $ref: '#/definitions/TipoServizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+############################################################################
+    
+  /tipiServizio/{idTipoServizio}/costiServizio:
+    parameters:
+      - $ref: '#/parameters/idTipoServizio'
+    get:
+      tags:
+        - TipoServizio
+        - CostoServizio
+      description: |
+        Restituisce il costo del tipo servizi. ad una tipologia di servizio si possono associare diversi costi in base la periodo, alla data, un lettino ad agosto potrebbe costare di piu che a maggio 
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/dataInizio'
+        - $ref: '#/parameters/dataFine'
+      responses:
+        200:
+          description: Lista dei costi della tipologie dei servizi
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CostoServizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    post:
+      tags:
+        - TipoServizio
+        - CostoServizio
+      description: Aggiunge un costo alla tipologia di servizio
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: costoServizio
+          in: body
+          description: Tipo di Servizio consumato
+          required: true
+          schema:
+           $ref: '#/definitions/CostoServizio'
+      responses:
+        201:
+          description: Restituisce il costo della tipologia del servizio creato compresa di id
+          schema:
+              $ref: '#/definitions/CostoServizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /tipiServizio/{idTipoServizio}/costiServizio/{idCostoServizio}:
+    parameters:
+      - $ref: '#/parameters/idTipoServizio'
+      - $ref: '#/parameters/idCostoServizio'
+    get:
+      tags:
+        - TipoServizio
+        - CostoServizio
+      description: Restituisce il costo di una tipologia di servizi
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce il costo di una tipologia di servizi
+          schema:
+            $ref: '#/definitions/CostoServizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    put:
+      tags:
+        - TipoServizio
+        - CostoServizio
+
+      description: Aggiorna il costodella tipologia di un servizio
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: costoServizio
+          in: body
+          description: costo della tipologia di un servizio
+          required: true
+          schema:
+            $ref: '#/definitions/CostoServizio'
+      responses:
+        200:
+          description: Restituisce il costo della tipologia di un servizio aggiornata
+          schema:
+            $ref: '#/definitions/CostoServizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    delete:
+      tags:
+        - TipoServizio
+        - CostoServizio
+      description: Cancella il costo della tipologia di un servizio
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce il costo della tipologia di un servizio cancellata
+          schema:
+            $ref: '#/definitions/CostoServizio'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+############################################################################
+
+  /clienti:
+    get:
+      tags:
+        - Cliente
+      description: Restituisce la lista degli oggetti `Cliente` definiti
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/assegn_inizio'
+        - $ref: '#/parameters/assegn_fine'
+        - name: chiave
+          in: query
+          description: Stringa utilizzata per ricerca **like** su nome e email del cliente
+          required: false
+          type: string
+      responses:
+        200:
+          description: Elenco dei clienti che matchano la chiave fornita
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Cliente'
+        500:
+          $ref: '#/responses/InternalServerError'
+    post:
+      tags:
+        - Cliente
+      description: Crea un nuovo `Cliente`
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cliente
+          in: body
+          description: Cliente da creare
+          required: true
+          schema:
+           $ref: '#/definitions/Cliente'
+      responses:
+        201:
+          description: Restituisce il cliente creato
+          schema:
+              $ref: '#/definitions/Cliente'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /clienti/{idCliente}:
+    parameters:
+      - $ref: '#/parameters/idCliente'
+    get:
+      tags:
+        - Cliente
+      description: Anagrafica del `Cliente`
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/assegn_inizio'
+        - $ref: '#/parameters/assegn_fine'
+      responses:
+        200:
+          description: Restituisce l'anagrafica del cliente
+          schema:
+            $ref: '#/definitions/Cliente'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    put:
+      tags:
+        - Cliente
+      description: Aggiorna l'anagrafica `Cliente`. L'Id cliente fornito sulla rotta sovrascrive quello possibilmente fornito nel body
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cliente
+          in: body
+          description: Nuova anagrafica del `Cliente`
+          required: true
+          schema:
+           $ref: '#/definitions/Cliente'
+      responses:
+        200:
+          description: Restituisce il cliente aggiornato
+          schema:
+            $ref: '#/definitions/Cliente'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    delete:
+      tags:
+        - Cliente
+      description: Cancella un `Cliente`
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce il cliente cancellato
+          schema:
+              $ref: '#/definitions/Cliente'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200:
+          $ref: '#/responses/ConfigureCORS'
+
+  /clienti/{idCliente}/schede:
+    parameters:
+      - $ref: '#/parameters/idCliente'
+    get:
+      tags:
+        - Cliente
+        - Scheda
+      description: Restituisce la lista delle schede del cliente
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Elenco delle schede
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Scheda'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    post:
+      tags:
+        - Cliente
+        - Scheda
+      description: Crea una nuova `Scheda` cliente
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: scheda
+          in: body
+          description: Scheda da creare
+          required: true
+          schema:
+           $ref: '#/definitions/Scheda'
+      responses:
+        201:
+          description: Restituisce la scheda creata compreso l'id assegnato
+          schema:
+              $ref: '#/definitions/Scheda'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /clienti/{idCliente}/schede/{idScheda}:
+    parameters:
+      - $ref: '#/parameters/idCliente'
+      - $ref: '#/parameters/idScheda'
+    get:
+      tags:
+        - Cliente
+        - Scheda
+      description: Restituisce l'anagrafica della `Scheda` cliente
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce l'anagrafica della scheda cliente
+          schema:
+            $ref: '#/definitions/Scheda'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    put:
+      tags:
+        - Cliente
+        - Scheda
+      description: Aggiorna la `Scheda` cliente. Gli id forniti sulla rotta dovrascrivono quelli eventualmente forniti nel body
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: scheda
+          in: body
+          description: Nuova anagrafica della `Scheda` cliente
+          required: true
+          schema:
+            $ref: '#/definitions/Scheda'
+      responses:
+        200:
+          description: Restituisce la `Scheda` aggiornata
+          schema:
+            $ref: '#/definitions/Scheda'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    delete:
+      tags:
+        - Cliente
+        - Scheda
+      description: Cancella la `Scheda` cliente
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce la scheda cliente cancellata
+          schema:
+              $ref: '#/definitions/Cliente'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200:
+          $ref: '#/responses/ConfigureCORS'
+
+  /clienti/{idCliente}/pagamenti:
+    parameters:
+      - $ref: '#/parameters/idCliente'
+    get:
+      tags:
+        - Cliente
+        - Pagamento
+      description: Restituisce la lista delle caparre versate dal cliente
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Elenco delle caparre versate da un cliente
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Pagamento'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    post:
+      tags:
+        - Cliente
+        - Pagamento
+      description: Crea un nuvo record per una caparra versata
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: pagamento
+          in: body
+          description: pagamento da creare
+          required: true
+          schema:
+           $ref: '#/definitions/Pagamento'
+      responses:
+        201:
+          description: Restituisce i dati della caparra versata
+          schema:
+              $ref: '#/definitions/Pagamento'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /clienti/{idCliente}/pagamenti/{idPagamento}:
+    parameters:
+      - $ref: '#/parameters/idCliente'
+      - $ref: '#/parameters/idPagamento'
+    get:
+      tags:
+        - Cliente
+        - Pagamento
+      description: Restituisce i dati di una caparra versata da un cliente
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce i dati di una caparra versata da un cliente
+          schema:
+            $ref: '#/definitions/Pagamento'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    put:
+      tags:
+        - Cliente
+        - Pagamento
+      description: Aggiorna i dati di una caparra versata
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: pagamento
+          in: body
+          description: dati di una caparra versata
+          required: true
+          schema:
+            $ref: '#/definitions/Scheda'
+      responses:
+        200:
+          description: Restituisce i dati della caparra aggiornati
+          schema:
+            $ref: '#/definitions/Pagamento'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200:
+          $ref: '#/responses/ConfigureCORS'
+
+  /clienti/{idCliente}/postazioni:
+    parameters:
+      - $ref: '#/parameters/idCliente'
+    get:
+      tags:
+        - Cliente
+        - Postazione
+      description: Restituisce la lista delle postazioni assegnate al cliente
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/dataInizio'
+        - $ref: '#/parameters/dataFine'
+      responses:
+        200:
+          description: Elenco delle postazioni
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Postazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /clienti/{idCliente}/postazioni/{idPostazione}:
+    parameters:
+      - $ref: '#/parameters/idCliente'
+      - $ref: '#/parameters/idPostazione'
+    get:
+      tags:
+        - Cliente
+        - Postazione
+      description: Anagrafica della `Postazione` associata al cliente
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/dataInizio'
+        - $ref: '#/parameters/dataFine'
+      responses:
+        200:
+          description: Restituisce l'anagrafica della postazione
+          schema:
+            $ref: '#/definitions/Postazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    post:
+      tags:
+        - Cliente
+        - Postazione
+      description: Assegna una `Postazione` al cliente
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: postazione
+          in: body
+          description: Postazione da associare
+          required: true
+          schema:
+           $ref: '#/definitions/Postazione'
+      responses:
+        201:
+          description: Postazione associata. Restituisce anche l'id assegnato
+          schema:
+              $ref: '#/definitions/AssegnamentoPostazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    delete:
+      tags:
+        - Cliente
+        - Postazione # he in realta e' l'assegnamento
+      description: Cancella l'assegnamento la postazione. ***TODO*** Come gestiamo eventuali dati collegati alla postazione e già registrati?
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce l'assegnamento cancellato
+          schema:
+              $ref: '#/definitions/AssegnamentoPostazione'
+        400:
+          description: Errore di validazione dei dati forniti
+          schema:
+            $ref:  '#/definitions/Error'
+        404:
+          description: Assegnamento non trovato
+        500:
+          $ref: '#/responses/InternalServerError'
+    put:
+      tags:
+        - Cliente
+        - Postazione
+      description: Aggiorna l'anagrafica `Postazione`. Gli id forniti sulla rotta dovrascrivono quelli eventualmente forniti nel body
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: scheda
+          in: body
+          description: Nuova anagrafica della `Postazione` cliente
+          required: true
+          schema:
+            $ref: '#/definitions/Postazione'
+      responses:
+        200:
+          description: Restituisce la `Postazione` aggiornata
+          schema:
+            $ref: '#/definitions/Postazione'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200:
+          $ref: '#/responses/ConfigureCORS'
+
+############################################################################
+
+  /abbonamenti:
+    get:
+      tags:
+        - Abbonamento
+      description: |
+        Restituisce la lista di tuttu glii Abbonamenti registrati.
+        Es. stagionale, mensile, settimanale, giornaliero, speciale scelto dall'utente
+      produces:
+        - application/json
+      parameters:
+        - name: filtro
+          in: query
+          description: Esegue una ricerca **like** sul codice abbonamento
+          required: false
+          type: string
+      responses:
+        200:
+          description: Restituisce la lista degli abbonamenti che soddisfano i criteri di ricerca
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Abbonamento'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    post:
+      tags:
+        - Abbonamento
+      description: Crea un abbonamento`
+      operationId: addAbbonamento
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: dati dell' Abbonamento
+          required: false
+          schema:
+           $ref: '#/definitions/Abbonamento'
+      responses:
+        201:
+          description: Restituisce il nuovo Abbonamento` completo di id
+          schema:
+            $ref: '#/definitions/Abbonamento'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+
+  /abbonamenti/{idAbbonamento}:
+    parameters:
+      - $ref: '#/parameters/idAbbonamento'
+    get:
+      tags:
+        - Abbonamento
+      description: Restituisce i dati dell`Abbonamento`
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce i dati dell`Abbonamento`
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Abbonamento'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    put:
+      tags:
+        - Abbonamento
+      description: Aggiorna un `Abbonamento`
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce i dati aggiornati di un abbonamenti
+          schema:
+              $ref: '#/definitions/Abbonamento'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    delete:
+      tags:
+        - Abbonamento
+      description: Cancella una tipologia di Abbonamento
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce un abbonamento cancellato
+          schema:
+              $ref: '#/definitions/Abbonamento'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+
+############################################################################
+
+  /operatori:
+    get:
+      tags:
+        - Operatori
+      description: Restituisce la lista degli oggetti `Operatori` definiti
+      produces:
+        - application/json
+      parameters:
+        - name: chiave
+          in: query
+          description: Stringa utilizzata per ricerca **like** su nome e email dell'operatore
+          required: false
+          type: string
+      responses:
+        200:
+          description: Elenco degli operatori che matchano la chiave fornita
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Operatore'
+        500:
+          $ref: '#/responses/InternalServerError'
+
+    post:
+      tags:
+        - Operatori
+      description: Crea un nuovo Operatore`
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: operatore
+          in: body
+          description: operatore da creare
+          required: true
+          schema:
+           $ref: '#/definitions/Operatore'
+      responses:
+        201:
+          description: operatore creato. Restituisce anche l'id assegnato
+          schema:
+              $ref: '#/definitions/Operatore'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        500:
+          $ref: '#/responses/InternalServerError'
+    options:
+      responses:
+        200: 
+          $ref: '#/responses/ConfigureCORS'
+
+  /operatori/{idOperatore}:
+    parameters:
+      - $ref: '#/parameters/idOperatore'
+    get:
+      tags:
+        - Operatori
+      description: Restituisce l'anagrafica del `Operatore` dalla tabella account se non ho idcliente valorizzato ho un operatore. 
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce l'anagrafica `Operatore`
+          schema:
+            $ref: '#/definitions/Operatore'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    put:
+      tags:
+        - Operatori
+      description: Aggiorna l'anagrafica `Operatore`. L'Id operatore fornito sulla rotta sovrascrive quello possibilmente fornito nel body
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: operatore
+          in: body
+          description: Nuova anagrafica del`Operatore`
+          required: true
+          schema:
+           $ref: '#/definitions/Operatore'
+      responses:
+        200:
+          description: Restituisce l'operatore aggiornato
+          schema:
+              $ref: '#/definitions/Operatore'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+    delete:
+      tags:
+        - Operatori
+      description: Cancella un `Operatore` , record da Account 
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Restituisce l'operatore cancellato
+          schema:
+              $ref: '#/definitions/Operatore'
+        400:
+          $ref: '#/responses/InvalidParameter'
+        404:
+          $ref: '#/responses/ResourceNotFound'
+        500:
+          $ref: '#/responses/InternalServerError'    
+    options:
+      responses:
+        200:
+          $ref: '#/responses/ConfigureCORS'
+
+
+definitions:
+
+  Cliente:
+    type: object
+    required:
+      - idCliente
+      - email
+      - password
+      - nome
+      - profilo
+    properties:
+      idCliente:
+        type: integer
+        description: id univoco del cliente
+      nome:
+        type: string
+        description: Nome del cliente
+      indirizzo:
+        type: string
+        description: indirizzo del cliente
+      cap:
+        type: string
+        description: indirizzo del cliente
+      citta:
+        type: string
+        description: citta di residenza del cliente
+      provincia:
+        type: string
+        description: provincia di residenza del cliente
+      stato:
+        type: string
+        description: stato di residenza  del cliente
+      codiceFiscale:
+        type: string
+        description: codice fiscale del cliente
+      telefono:
+        type: string
+        description: telefono del cliente
+      email:
+        type: string
+        format: email
+        description: L'email viene utilizzata come username e per il recupero della password
+      password:
+        type: string
+        format: password
+        description: Utilizzata solo alla creazione del cliente
+      abilitato:
+        type: boolean
+        description: Indica se l'utente può operare sulla webapp
+      daSaldare:
+        type: number
+        format: float
+      note:
+        type: string
+        description: note sul cliente
+      profilo:
+        $ref: '#/definitions/Profilo'
+      schede:
+        description: Schede assegnate al cliente
+        type: array
+        items:
+          $ref: '#/definitions/Scheda'
+      assegnamenti:
+        description: Postazioni assegnate al cliente
+        type: array
+        items:
+          $ref: '#/definitions/AssegnamentoPostazione'
+
+  Pagamento:
+    type: object
+    required:
+      - idPagamento
+      - data
+      - importo
+    properties:
+      idPagamento:
+        type: integer
+        description: id univoco del pagamento/caparra versata dal cliente
+      data:
+        type: string
+        format: date-time
+        description: data di quando il cliente rilascia una caparra
+      importo:
+        type: number
+        format: float
+        
+  Scheda:
+    type: object
+    required:
+      - idScheda
+      - idCliente
+      - codice
+    properties:
+      idScheda:
+        type: integer
+        format: int32
+      idCliente:
+        type: integer
+        format: int32
+      codice:
+        type: string
+      importo:
+        type: number
+        format: float
+      dataRilascio:
+        type: string
+        format: date-time
+        
+  SubaffittoPostazione:
+    description: |
+      Periodo in cui la postazione era disponibile
+      ed è stata riaffittata ad un altro cliente
+    type: object
+    required:
+      - idSubaffitto
+      - dataInizio
+      - dataFine
+    properties:
+      idSubaffitto:
+        type: integer
+        format: int32
+        description: Identificativo
+      dataInizio:
+        type: string
+        format: date-time
+      dataFine:
+        type: string
+        format: date-time
+        
+  DisponibilitaPostazione:
+    description: Periodo in cui il cliente consente che la postazione sia riaffittata ad altri
+    type: object
+    required:
+      - idDisponibilita
+      - dataInizio
+      - dataFine
+    properties:
+      idDisponibilita:
+        type: integer
+        format: int32
+        description: Identificativo
+      dataInizio:
+        type: string
+        format: date-time
+      dataFine:
+        type: string
+        format: date-time
+      subaffitti:
+        description: |
+          Periodi in cui la postazione è stata riaffittata.
+          I riaffitti *devono* avvenire all'interno della disponibilità.
+        type: array
+        items:
+          $ref: '#/definitions/SubaffittoPostazione'
+          
+  Abbonamento:
+    type: object
+    required:
+       - codice
+       - costo
+    properties:
+      idAbbonamento:
+        type: integer
+        format: int32
+        description: Id del tipo di abbonamento 
+      codice:
+        type: string
+      costo:
+        type: number
+        format: float
+          
+  AssegnamentoPostazione:
+    description: Periodo in cui il cliente ha noleggiato la postazione
+    type: object
+    required:
+      - idAssegnamento
+      - dataInizio
+      - dataFine
+    properties:
+      idAssegnamento:
+        type: integer
+        format: int32
+        description: Identificativo
+      dataInizio:
+        type: string
+        format: date-time
+      dataFine:
+        type: string
+        format: date-time
+      note:
+        type: string
+      disponibilita:
+        description: |
+          Periodi in cui il cliente consente il riaffitto della postazione.
+          I periodi di disponibilità possono essere definiti solo all'interno
+          dell'assegnamento.
+        type: array
+        items:
+          $ref: '#/definitions/DisponibilitaPostazione'
+      abbonamento:
+        items:
+          $ref: '#/definitions/Abbonamento'
+      cliente:
+        items:
+          $ref: '#/definitions/Cliente'
+      autorizzati:
+        type: array
+        items:
+            type: string
+      servizi:
+        description: |
+          servizi legati alla postazione assegnata.
+        type: array
+        items:
+          $ref: '#/definitions/Servizio'
+
+  Postazione:
+    type: object
+    description: Postazione
+    required:
+      - idPostazione
+      - settore
+      - fila
+      - colonna
+      - x
+      - y
+      - note
+    properties:
+      idPostazione:
+        type: integer
+        format: int32
+        description: Identificativo
+      settore:
+        type: string
+        description: Identificativo settore
+      fila:
+        type: string
+        description: Identificativo fila
+      colonna:
+        type: string
+        description: Identificativo colonna
+      x:
+        type: integer
+        format: int32
+        description: Coordinata posizione postazione (fila)
+      y:
+        type: integer
+        format: int32
+        description: Coordinata posizione postazione (colonna)
+      note:
+        type: string
+        description: Note sulla postazione
+      assegnamenti:
+        type: array
+        items:
+          $ref: '#/definitions/AssegnamentoPostazione'
+
+  CostoServizio:
+    type: object
+    required:
+      - idCosto
+      - idTipoServizio
+      - costo
+    properties:
+      idCosto:
+        type: integer
+        format: int32
+      idTipoServizio:
+        type: integer
+        format: int32
+      inizioPeriodo:
+        type: string
+        format: date-time
+      finePeriodo:
+        type: string
+        format: date-time
+      costo:
+        type: number
+        format: float
+        
+  TipoServizio:
+    type: object
+    required:
+      - idTipoServizio
+      - descrizione
+    
+    properties:
+      idTipoServizio:
+        type: integer
+        format: int32
+      descrizione:
+        type: string
+      costo:
+        type: array
+        items:
+          $ref: '#/definitions/CostoServizio'
+        description: costi del servizio
+  
+  Servizio:
+    type: object
+    required:
+    - idAssegnamentoPostazione
+    - dataInizio
+    - dataFine
+    - qta
+    - costoFinale
+    properties:
+      idServizio:
+        type: integer
+        format: int32
+      idAssegnamentoPostazione:
+        type: integer
+        format: int32
+      dataInizio:
+        type: string
+        format: date-time
+      dataFine:
+        type: string
+        format: date-time
+      qta:
+        type: number
+        format: float
+      costoFinale:
+        type: number
+        format: float
+      note:
+        type: string
+      tipoServizio:
+        $ref: '#/definitions/TipoServizio'
+      
+  Operatore:
+    type: object
+    required:
+      - idOperatore
+      - nome
+      - email
+      - profilo
+      - password
+    properties:
+      idOperatore:
+        type: integer
+        description: Id dell'account
+      nome:
+        type: string
+      indirizzo:
+        type: string
+      telefono:
+        type: string
+      email:
+        type: string
+        format: email
+        description: L'email viene utilizzata come username e per il recupero della password
+      password:
+        type: string
+        format: password
+        description: Utilizzata solo alla creazione dell'account
+      abilitato:
+        type: boolean
+        description: Indica se l'utente può operare sulla webapp
+      profilo:
+        $ref: '#/definitions/Profilo'
+
+  
+#  AccountSessione:
+#    type: object
+#    required:
+#      - email
+#      - password
+#    properties:
+#      email:
+#        type: string
+#      password:
+#        type: string
+        
+  Privilegio:
+    type: object
+    properties:
+      idPrivilegio:
+        type: integer
+        format: int32
+      descrizione:
+        type: string
+
+  Profilo:
+    type: object
+    properties:
+      idProfilo:
+        type: integer
+        format: int32
+      descrizione:
+        type: string
+      privilegi:
+        type: array
+        items:
+          $ref: '#/definitions/Privilegio'
+        description: lista dei privilegi di un profilo
+
+
+  Error:
+    type: object
+    required:
+      - message
+    properties:
+      code:
+        description: Codice identificativo dell'errore per consentire al client di implementare il comportamento opportuno
+        type: integer
+        format: int32
+      message:
+        description: Descrive le cause dell'errore in modo utile all'utente per comprendere l'azione correttiva da eseguire
+        type: string
+      fields:
+        description: Elenco opzionale delle proprietà non valide. Utilizzo specifico per errori di validazione
+        type: array
+        items:
+          type: string
+          
+  Info:
+    type: object
+    required:
+      - version
+      - message
+    properties:
+      version:
+        description: Versione del web service
+        type: string
+      message:
+        description: Nome e descrizione del web service
+        type: string
+          
+responses:
+
+  ConfigureCORS:
+    description: Configura il CORS - https://enable-cors.org
+    headers:
+      X-Rate-Limit-Limit:
+        description: Numero di richieste eseguibili nel periodo
+        type: integer
+      X-Rate-Limit-Remaining:
+        description: Richieste residue nel periodo corrente
+        type: integer
+      X-Rate-Limit-Reset:
+        description: Secondi rimanenti nel periodo corrente
+        type: integer
+      Access-Control-Allow-Origin:
+        description: |
+          Dichiara gli host da cui accetta richieste
+          Tipicamente i valori restituiti sono:
+          - * (asterisco) per accettare richieste da qualunque host
+          - L'host indicato nell'header Origin della richiesta
+          - Un elenco di host abilitati
+        type: string
+      Access-Control-Allow-Methods:
+        description: |
+          Dichiara i metodi disponibili sulla risorsa.
+          Tipicamente GET, POST, PUT, DELETE, OPTIONS
+        type: string
+      Access-Control-Allow-Headers:
+        description: |
+          Dichiara gli header accettati in richiesta. Tipicamente sono
+          Origin, X-Requested-With, Content-Type, Accept, Authorization
+        type: string
+
+  InvalidParameter:
+    description: |
+      Controlli di validazione falliti. Almeno un parametro non è valido (ad esempio una stringa al posto di un intero).
+      Si può trattare di un parametro specificato sulla rotta o nel body.
+      L'oggetto `Error` restituito nella risposta può contenere maggiori informazioni.
+    schema:
+      $ref: '#/definitions/Error'
+  
+  ResourceNotFound:
+    description: Risorsa non trovata. Gli id forniti dal client sono validi ma non esiste un'entità corrispondente nel database
+  
+  InternalServerError:
+    description: |
+      L'API ha generato un errore che viene registrato per successiva analisi.
+      Generalmente restituire il codice 500 0 503 se l'errore è temporaneo.
+
+parameters:
+
+  idProfilo:
+    name: idProfilo
+    in: path
+    description: Id del profilo
+    required: true
+    type: integer
+    format: int32
+    
+  idPostazione:
+    name: idPostazione
+    in: path
+    description: Id della postazione
+    required: true
+    type: integer
+    format: int32
+    
+  idAssegnamento:
+    name: idAssegnamento
+    in: path
+    description: Id dell'assegnamento postazione
+    required: true
+    type: integer
+    format: int32
+    
+  idDisponibilita:
+    name: idDisponibilita
+    in: path
+    description: Id disponibilità postazione
+    required: true
+    type: integer
+    format: int32
+    
+  idSubaffitto:
+    name: idSubaffitto
+    in: path
+    description: Id subaffitto postazione
+    required: true
+    type: integer
+    format: int32
+    
+  idServizio:
+    name: idServizio
+    in: path
+    description: Id servizio acquistato dalla cliente
+    required: true
+    type: integer
+    format: int32
+
+  idTipoServizio:
+    name: idTipoServizio
+    in: path
+    description: Id della tipologia di un servizio
+    required: true
+    type: integer
+    format: int32
+
+  idCostoServizio:
+    name: idCostoServizio
+    in: path
+    description: Id del costo della tipologia di un servizio
+    required: true
+    type: integer
+    format: int32
+    
+  idCliente:
+    name: idCliente
+    in: path
+    description: Id del cliente
+    required: true
+    type: integer
+    format: int32
+
+  idPagamento:
+    name: idPagamento
+    in: path
+    description: Id del pagamento del cliente
+    required: true
+    type: integer
+    format: int32
+    
+  idScheda:
+    name: idScheda
+    in: path
+    description: Id della scheda cliente
+    required: true
+    type: integer
+    format: int32
+    
+  idOperatore:
+    name: idOperatore
+    in: path
+    description: Id dell'operatore
+    required: true
+    type: integer
+    format: int32
+  
+  idAbbonamento:
+    name: idAbbonamento
+    in: path
+    description: Id dell'abbonamento
+    required: true
+    type: integer
+    format: int32
+  
+  dataInizio:
+    name: dataInizio
+    in: query
+    description: |
+            Parametro per la ricerca di un itervallo di tempo
+            da data inizio  a data fine
+            dataInizio<= tutti i valori<= data fine
+            il formato della data deve esssere yyyy-mm-dd
+            se omesso la ricerca sara solo su data fine 
+            tutti valori <= data fine
+            se omessi entrambi avro' tutti i record
+    required: false
+    type: string
+  
+  dataFine:
+    name: dataFine
+    in: query
+    description: |
+            Parametro per la ricerca di un itervallo di tempo
+            da data inizio  a data fine
+            dataInizio<= tutti i valori<= data fine
+            il formato della data deve esssere yyyy-mm-dd
+            se omesso la ricerca sara solo su data inizio 
+            tutti valori >= data Inizio
+            se omessi entrambi avro' tutti i record
+    required: false
+    type: string      
+  assegn_inizio:
+    name: assegn_inizio
+    in: query
+    description: |
+       Indica la data di inizio per la ricerca della situazione
+       degli assegnamenti - disponibilita in un intervallo di date
+       se messa solo questa sarà come cercare tutti gli assegnamenti
+       da questa data in poi non visualizzo assegnamenti finiti
+       solo quelli correnti e quelli futuri.
+       Il formato della data deve essere yyyy-mm-dd
+    required: false
+    type: string
+  assegn_fine:
+    name: assegn_fine
+    in: query
+    description: |
+       Indica la data di fine per la ricerca della situazione
+       degli assegnamenti - disponibilita in un intervallo di
+       date se aggiunta alla data di inizio assegn_inizio mi
+       mostrera tutti gli assegnamenti ancora attivi in quel
+       intervallo di tempo.
+       Il formato della data deve esssere yyyy-mm-dd
+    required: false
+    type: string

@@ -1,0 +1,1954 @@
+{
+    "variables": [],
+    "info": {
+        "name": "BeachSeat API",
+        "_postman_id": "9d468e2d-fcbc-b211-a612-c6d45a18d27b",
+        "description": "API per programma gestione spiaggie",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "abbonamenti",
+            "description": "Folder for abbonamenti",
+            "item": [
+                {
+                    "name": "http://api.sb.local/abbonamenti?filtro={{filtro}}",
+                    "request": {
+                        "url": "http://api.sb.local/abbonamenti?filtro={{filtro}}",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce la lista di tuttu glii Abbonamenti registrati.\nEs. stagionale, mensile, settimanale, giornaliero, speciale scelto dall'utente\n"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/abbonamenti",
+                    "request": {
+                        "url": "http://api.sb.local/abbonamenti",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "dati dell' Abbonamento"
+                        },
+                        "description": "Crea un abbonamento`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/abbonamenti/:idAbbonamento",
+                    "request": {
+                        "url": "http://api.sb.local/abbonamenti/:idAbbonamento",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce i dati dell`Abbonamento`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/abbonamenti/:idAbbonamento",
+                    "request": {
+                        "url": "http://api.sb.local/abbonamenti/:idAbbonamento",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Aggiorna un `Abbonamento`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/abbonamenti/:idAbbonamento",
+                    "request": {
+                        "url": "http://api.sb.local/abbonamenti/:idAbbonamento",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Cancella una tipologia di Abbonamento"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "account",
+            "description": "Folder for account",
+            "item": [
+                {
+                    "name": "http://api.sb.local/account?chiave={{chiave}}",
+                    "request": {
+                        "url": "http://api.sb.local/account?chiave={{chiave}}",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce la lista degli oggetti `Account` definiti"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/account",
+                    "request": {
+                        "url": "http://api.sb.local/account",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Account da creare"
+                        },
+                        "description": "Crea un nuovo `Account`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/account",
+                    "request": {
+                        "url": "http://api.sb.local/account",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/account/:idAccount",
+                    "request": {
+                        "url": "http://api.sb.local/account/:idAccount",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce l'anagrafica del `Account`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/account/:idAccount",
+                    "request": {
+                        "url": "http://api.sb.local/account/:idAccount",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Nuova anagrafica del`Account`"
+                        },
+                        "description": "Aggiorna l'anagrafica `Account`. L'Id account fornito sulla rotta sovrascrive quello possibilmente fornito nel body"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/account/:idAccount",
+                    "request": {
+                        "url": "http://api.sb.local/account/:idAccount",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Cancella un `Account`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/account/:idAccount",
+                    "request": {
+                        "url": "http://api.sb.local/account/:idAccount",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "clienti",
+            "description": "Folder for clienti",
+            "item": [
+                {
+                    "name": "http://api.sb.local/clienti?chiave={{chiave}}",
+                    "request": {
+                        "url": "http://api.sb.local/clienti?chiave={{chiave}}",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce la lista degli oggetti `Cliente` definiti"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti",
+                    "request": {
+                        "url": "http://api.sb.local/clienti",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Cliente da creare"
+                        },
+                        "description": "Crea un nuovo `Cliente`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti",
+                    "request": {
+                        "url": "http://api.sb.local/clienti",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Anagrafica del `Cliente`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Nuova anagrafica del `Cliente`"
+                        },
+                        "description": "Aggiorna l'anagrafica `Cliente`. L'Id cliente fornito sulla rotta sovrascrive quello possibilmente fornito nel body"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Cancella un `Cliente`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/schede",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/schede",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce la lista delle schede del cliente"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/schede",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/schede",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Scheda da creare"
+                        },
+                        "description": "Crea una nuova `Scheda` cliente"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/schede",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/schede",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/schede/:idScheda",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/schede/:idScheda",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce l'anagrafica della `Scheda` cliente"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/schede/:idScheda",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/schede/:idScheda",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Nuova anagrafica della `Scheda` cliente"
+                        },
+                        "description": "Aggiorna la `Scheda` cliente. Gli id forniti sulla rotta dovrascrivono quelli eventualmente forniti nel body"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/schede/:idScheda",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/schede/:idScheda",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Cancella la `Scheda` cliente"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/schede/:idScheda",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/schede/:idScheda",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/pagamenti",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/pagamenti",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce la lista delle caparre versate dal cliente"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/pagamenti",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/pagamenti",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "pagamento da creare"
+                        },
+                        "description": "Crea un nuvo record per una caparra versata"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/pagamenti",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/pagamenti",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/pagamenti/:idPagamento",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/pagamenti/:idPagamento",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce i dati di una caparra versata da un cliente"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/pagamenti/:idPagamento",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/pagamenti/:idPagamento",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "dati di una caparra versata"
+                        },
+                        "description": "Aggiorna i dati di una caparra versata"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/pagamenti/:idPagamento",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/pagamenti/:idPagamento",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/postazioni?dataInizio={{dataInizio}}&dataFine={{dataFine}}",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/postazioni?dataInizio={{dataInizio}}&dataFine={{dataFine}}",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce la lista delle postazioni assegnate al cliente"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/postazioni",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/postazioni",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/postazioni/:idPostazione?dataInizio={{dataInizio}}&dataFine={{dataFine}}",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/postazioni/:idPostazione?dataInizio={{dataInizio}}&dataFine={{dataFine}}",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Anagrafica della `Postazione` associata al cliente"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/postazioni/:idPostazione",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/postazioni/:idPostazione",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Nuova anagrafica della `Postazione` cliente"
+                        },
+                        "description": "Aggiorna l'anagrafica `Postazione`. Gli id forniti sulla rotta dovrascrivono quelli eventualmente forniti nel body"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/postazioni/:idPostazione",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/postazioni/:idPostazione",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Postazione da associare"
+                        },
+                        "description": "Assegna una `Postazione` al cliente"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/postazioni/:idPostazione",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/postazioni/:idPostazione",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Cancella l'assegnamento la postazione. ***TODO*** Come gestiamo eventuali dati collegati alla postazione e già registrati?"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/postazioni/:idPostazione",
+                    "request": {
+                        "url": "http://api.sb.local/clienti/:idCliente/postazioni/:idPostazione",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "info",
+            "description": "Folder for info",
+            "item": [
+                {
+                    "name": "http://api.sb.local/info",
+                    "request": {
+                        "url": "http://api.sb.local/info",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce informazioni e versione del web service"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "postazioni",
+            "description": "Folder for postazioni",
+            "item": [
+                {
+                    "name": "http://api.sb.local/postazioni?settore={{settore}}&fila={{fila}}&colonna={{colonna}}&chiave={{chiave}}",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni?settore={{settore}}&fila={{fila}}&colonna={{colonna}}&chiave={{chiave}}",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce la lista delle postazioni che soddisfano i criteri di ricerca"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Postazione da creare"
+                        },
+                        "description": "Crea una postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce l'anagrafica della `Postazione`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Postazione da creare"
+                        },
+                        "description": "Aggiorna la `Postazione`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Elimina la `Postazione`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti?dataInizio={{dataInizio}}&dataFine={{dataFine}}",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti?dataInizio={{dataInizio}}&dataFine={{dataFine}}",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce gli assegnamenti della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Periodi di assegnamento della postazione"
+                        },
+                        "description": "Assegna la postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce l'assegnamento della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Assegnamento della postazione"
+                        },
+                        "description": "Aggiorna l'assegnamento"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Cancella l'assegnamento la postazione. ***TODO*** Come gestiamo eventuali dati collegati alla postazione e già registrati?"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce le disponibilità della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Periodo di disponibilità della postazione"
+                        },
+                        "description": "Aggiunge una disponibilità della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce la disponibilità della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Disponibilità della postazione"
+                        },
+                        "description": "Aggiorna la disponibilità della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Cancella la disponibilità della postazione. ***TODO*** Come gestiamo eventuali subaffitti già registrati?"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce i subaffitti della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Periodo subaffittato"
+                        },
+                        "description": "Aggiunge un subaffitto alla postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti/:idSubaffitto",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti/:idSubaffitto",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce il subaffitto della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti/:idSubaffitto",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti/:idSubaffitto",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Subaffitto della postazione"
+                        },
+                        "description": "Aggiorna il subaffitto della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti/:idSubaffitto",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti/:idSubaffitto",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Cancella il subaffitto della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti/:idSubaffitto",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti/:idSubaffitto",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/servizi?dataInizio={{dataInizio}}&dataFine={{dataFine}}",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/servizi?dataInizio={{dataInizio}}&dataFine={{dataFine}}",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce i servizi della postazione. \n***TODO*** da rivedere. La gestione dei servizi lato cliente andrebbe fatta su *cliente/id/postazioni/id/servizi* per \"blindare\" id cliente e id postazione\n"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/servizi",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/servizi",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Servizio consumato"
+                        },
+                        "description": "Aggiunge un servizio sulla postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/servizi",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/servizi",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/servizi/:idServizio",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/servizi/:idServizio",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce il servizio della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/servizi/:idServizio",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/servizi/:idServizio",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Servizio della postazione"
+                        },
+                        "description": "Aggiorna il servizio della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/servizi/:idServizio",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/servizi/:idServizio",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Cancella il servizio della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/servizi/:idServizio",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/servizi/:idServizio",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "profili",
+            "description": "Folder for profili",
+            "item": [
+                {
+                    "name": "http://api.sb.local/profili?filtro={{filtro}}",
+                    "request": {
+                        "url": "http://api.sb.local/profili?filtro={{filtro}}",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce la lista degli oggetti `Profilo` definiti"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/profili",
+                    "request": {
+                        "url": "http://api.sb.local/profili",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Profilo da creare"
+                        },
+                        "description": "Crea un nuovo `Profilo`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/profili",
+                    "request": {
+                        "url": "http://api.sb.local/profili",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/profili/:idProfilo",
+                    "request": {
+                        "url": "http://api.sb.local/profili/:idProfilo",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce l'anagrafica del `Profilo`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/profili/:idProfilo",
+                    "request": {
+                        "url": "http://api.sb.local/profili/:idProfilo",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Nuova anagrafica del `Profilo`"
+                        },
+                        "description": "Aggiorna il `Profilo`. L'id fornito sulla rotta sovrascrive quello possibilmente dichiarato nel body"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/profili/:idProfilo",
+                    "request": {
+                        "url": "http://api.sb.local/profili/:idProfilo",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Cancella un `Profilo`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/profili/:idProfilo",
+                    "request": {
+                        "url": "http://api.sb.local/profili/:idProfilo",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "sessione",
+            "description": "Folder for sessione",
+            "item": [
+                {
+                    "name": "http://api.sb.local/sessione",
+                    "request": {
+                        "url": "http://api.sb.local/sessione",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Credenziali dell'utente"
+                        },
+                        "description": "Autenticazione account"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/sessione",
+                    "request": {
+                        "url": "http://api.sb.local/sessione",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Termina la sessione del client API"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "tipoServizi",
+            "description": "Folder for tipoServizi",
+            "item": [
+                {
+                    "name": "http://api.sb.local/tipoServizi?filtro={{filtro}}",
+                    "request": {
+                        "url": "http://api.sb.local/tipoServizi?filtro={{filtro}}",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce il tipo servizi. \n"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/tipoServizi",
+                    "request": {
+                        "url": "http://api.sb.local/tipoServizi",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Tipo di Servizio consumato"
+                        },
+                        "description": "Aggiunge una tipologia di servizio"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/tipoServizi",
+                    "request": {
+                        "url": "http://api.sb.local/tipoServizi",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/tipoServizi/:idTipoServizio",
+                    "request": {
+                        "url": "http://api.sb.local/tipoServizi/:idTipoServizio",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce una tipologia di servizi"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/tipoServizi/:idTipoServizio",
+                    "request": {
+                        "url": "http://api.sb.local/tipoServizi/:idTipoServizio",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Servizio della postazione"
+                        },
+                        "description": "Aggiorna la tipologia di un servizio"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/tipoServizi/:idTipoServizio",
+                    "request": {
+                        "url": "http://api.sb.local/tipoServizi/:idTipoServizio",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Cancella la tipologia di un servizio"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/tipoServizi/:idTipoServizio",
+                    "request": {
+                        "url": "http://api.sb.local/tipoServizi/:idTipoServizio",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/tipoServizi/:idTipoServizio/costiServizio?dataInizio={{dataInizio}}&dataFine={{dataFine}}",
+                    "request": {
+                        "url": "http://api.sb.local/tipoServizi/:idTipoServizio/costiServizio?dataInizio={{dataInizio}}&dataFine={{dataFine}}",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce il costo del tipo servizi. ad una tipologia di servizio si possono associare diversi costi in base la periodo, alla data, un lettino ad agosto potrebbe costare di piu che a maggio \n"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/tipoServizi/:idTipoServizio/costiServizio",
+                    "request": {
+                        "url": "http://api.sb.local/tipoServizi/:idTipoServizio/costiServizio",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "Tipo di Servizio consumato"
+                        },
+                        "description": "Aggiunge un costo alla tipologia di servizio"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/tipoServizi/:idTipoServizio/costiServizio",
+                    "request": {
+                        "url": "http://api.sb.local/tipoServizi/:idTipoServizio/costiServizio",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/tipoServizi/:idTipoServizio/costiServizio/:idCostoServizio",
+                    "request": {
+                        "url": "http://api.sb.local/tipoServizi/:idTipoServizio/costiServizio/:idCostoServizio",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce il costo di una tipologia di servizi"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/tipoServizi/:idTipoServizio/costiServizio/:idCostoServizio",
+                    "request": {
+                        "url": "http://api.sb.local/tipoServizi/:idTipoServizio/costiServizio/:idCostoServizio",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "costo della tipologia di un servizio"
+                        },
+                        "description": "Aggiorna il costodella tipologia di un servizio"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/tipoServizi/:idTipoServizio/costiServizio/:idCostoServizio",
+                    "request": {
+                        "url": "http://api.sb.local/tipoServizi/:idTipoServizio/costiServizio/:idCostoServizio",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Cancella il costo della tipologia di un servizio"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/tipoServizi/:idTipoServizio/costiServizio/:idCostoServizio",
+                    "request": {
+                        "url": "http://api.sb.local/tipoServizi/:idTipoServizio/costiServizio/:idCostoServizio",
+                        "method": "OPTIONS",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": ""
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}

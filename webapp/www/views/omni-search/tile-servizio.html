@@ -1,0 +1,36 @@
+<md-card ng-repeat="servizio in servizi.data" class="servizio">
+    <md-card-title>
+        <md-card-title-text layout="row">
+            <div class="md-headline" layout="column" flex="grow">
+                {{servizio.descrizione}}
+            </div>
+            <!--<span class="md-subhead">Large</span>-->
+            <div layout="column" flex="none">
+                <md-icon md-svg-icon="img/material.io/ic_mode_edit_24px.svg"
+                         ng-click="editTipoServizio($event, servizio)"/>
+            </div>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content ng-if="!servizio.hasCosto()">
+        Servizio gratuito
+    </md-card-content>
+    <md-card-content ng-if="servizio.hasCosto()">
+        Costi
+        <div layout="row" ng-repeat="costo in servizio.costo">
+            <div layout="column" flex="50">
+                {{costo.inizioPeriodo | date : "d/M"}}
+                -
+                {{costo.finePeriodo | date : "d/M"}}
+            </div>
+            <div layout="column" flex="50">
+                {{costo.costo}} &euro;
+            </div>
+        </div>
+    </md-card-content>
+    <!--
+    <md-card-actions layout="row" layout-align="end center">
+            <md-button>Action 1</md-button>
+            <md-button>Action 2</md-button>
+    </md-card-actions>
+    -->
+</md-card>

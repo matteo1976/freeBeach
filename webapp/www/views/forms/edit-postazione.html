@@ -1,0 +1,167 @@
+<div class="md-dialog-container">
+    <md-dialog layout-padding arial-label="Modifica postazione">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <div layout="row" flex>
+                    <div layout="column" flex="none">
+                        <md-button class="md-icon-button" ng-click="confirm()">
+                            <md-icon md-svg-src="img/material.io/ic_arrow_back_24px.svg"
+                                     aria-label="Close dialog">
+                            </md-icon>
+                        </md-button>
+                    </div>
+                    <div layout="column" layout-align="center center" flex="grow">
+                        <h2>{{::"Postazione " + postazione.getCode()}}</h2>
+                    </div>
+                    <div layout="column" flex="none">
+                        <md-button class="md-icon-button" ng-click="assign($event)">
+                            <md-icon md-svg-icon="img/material.io/ic_beach_access_24px.svg"
+                                     aria-label="Add an assignment">
+                            </md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content class="edit-spot">
+
+            <md-tabs>
+                <md-tab label="Dati postazione">
+                    <form name="postazioneForm">
+
+                        <div layout="row">
+                            <div layout="column" flex=>
+                                <md-input-container>
+                                    <label>Note</label>
+                                    <textarea ng-model="postazione.note"
+                                              ng-change="changed()"
+                                              md-maxlength="100" max-rows="3">
+                                    </textarea>
+                                    <div ng-messages="postazioneForm.note.$error">
+                                        <div ng-message="maxlength">Lunghezza massima consentita 100 caratteri</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div flex ng-if="hasPrimoAssegnamento()">
+                            <!-- TODO: implementare un componente per il badge assegnamento -->
+                            <div layout="row" flex>
+                                <div layout="column" flex>
+                                    <div class="md-subheader md-primary"
+                                         style="padding-bottom: 12px; background-color: transparent;">
+                                        ASSEGNAMENTO
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div layout="row" flex>
+                                <div layout="column" flex>
+                                    Periodo
+                                </div>
+                                <div layout="column" flex>
+                                    {{primoAssegnamento.dataInizio| date : "d/M"}}
+                                    -
+                                    {{primoAssegnamento.dataInizio| date : "d/M"}}
+                                </div>
+                            </div>
+
+                            <div layout="row" flex>
+                                <div layout="column" flex>
+                                    Cliente
+                                </div>
+                                <div layout="column" flex>
+                                    {{primoAssegnamento.cliente.nome}}
+                                </div>
+                            </div>
+
+                            <div layout="row" flex ng-if="primoAssegnamento.hasServizi()">
+                                <div layout="column" flex>
+                                    Servizi
+                                </div>
+                                <div layout="column" flex>
+                                    .....
+                                </div>
+                            </div>
+
+                            <div layout="row" flex>
+                                <div layout="column" flex>
+                                    Abbonamento
+                                </div>
+                                <div layout="column" flex>
+                                    {{primoAssegnamento.abbonamento.codice}}
+                                </div>
+                            </div>
+
+                            <div layout="row" flex ng-if="primoAssegnamento.hasAutorizzati()">
+                                <div layout="column" flex>
+                                    Ospiti autorizzati
+                                </div>
+                                <div layout="column" flex>
+                                    {{primoAssegnamento.autorizzati}}
+                                </div>
+                            </div>
+
+                            <div layout="row" flex ng-if="primoAssegnamento.hasNote()">
+                                <div layout="column" flex>
+                                    Note
+                                </div>
+                                <div layout="column" flex>
+                                    {{primoAssegnamento.note}}
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </md-tab>
+
+                <md-tab label="Calendario" md-on-select="refreshAssegnamenti()">
+                    <div class="table-content" ng-if="postazione.hasAssegnamenti()">
+                        <div layout="row" class="table-content-header">
+                            <div layout="column" layout-align="center" flex>Periodo</div>
+                            <div layout="column" layout-align="center" flex>Cliente</div>
+                            <div layout="column" layout-align="center" flex="fill">Abbonamento</div>
+                            <div layout="column" layout-align="end end" flex="none" style="width: 34px;">
+                            </div>
+                        </div>
+                        <div class="table-content-scroll">
+                            <div ng-repeat="assegnamento in postazione.assegnamenti" layout="row" flex>
+                                <div layout="column" layout-align="center" flex>
+                                    {{assegnamento.dataInizio| date : "d/M"}}
+                                    -
+                                    {{assegnamento.dataFine| date : "d/M"}}
+                                </div>
+                                <div layout="column" layout-align="center" flex>
+                                    {{assegnamento.cliente.nome}}
+                                </div>
+                                <div layout="column" flex layout-align="center">
+                                    <div layout="row" class="inner-toolbar">
+                                        <div layout="column"  layout-align="center">
+                                            {{assegnamento.abbonamento.codice}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div layout="column" layout-align="center" flex="none">
+                                    <md-icon md-svg-icon="img/material.io/ic_mode_edit_24px.svg"
+                                             ng-click="editAssegnamento(assegnamento, $event)">
+                                    </md-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div layout="row" flex="grow" ng-if="!postazione.hasAssegnamenti()"
+                         style="height: 100%;">
+                        <div layout="column" layout-align="center center" flex="grow">
+                            Nessun assegnamento trovato
+                        </div>
+                    </div>
+                </md-tab>
+
+            </md-tabs>
+
+        </md-dialog-content>
+
+    </md-dialog>
+</div>

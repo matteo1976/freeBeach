@@ -1,0 +1,82 @@
+<div class="md-dialog-container">
+    <md-dialog layout-padding arial-label="Tipo servizio">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <div layout="row" flex>
+                    <div layout="column" flex="none">
+                        <md-button class="md-icon-button" ng-click="confirm()">
+                            <md-icon md-svg-src="img/material.io/ic_arrow_back_24px.svg"
+                                     aria-label="Close dialog">
+                            </md-icon>
+                        </md-button>
+                    </div>
+                    <div layout="column" layout-align="center center" flex="grow">
+                        <h2>Tipo servizio</h2>
+                    </div>
+                    <div layout="column" flex="none">
+                        <md-button class="md-icon-button" ng-click="addCost($event)"
+                                   ng-disabled="!isUpdate">
+                            <md-icon md-svg-icon="img/material.io/ic_euro_symbol_24px.svg"
+                                     aria-label="Aggiungi un costo">
+                            </md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content class="edit-tipo-servizio">
+
+            <form name="tipoServizioForm">
+
+                <div flex layout="row" flex>
+                    <div layout="column" layout-align="start" flex="grow">
+                        <md-input-container>
+                            <label>Descrizione</label>
+                            <input type="text" name="descrizione"
+                                   ng-model="tipoServizio.descrizione"
+                                   ng-change="changed()"
+                                   required maxlength="45">
+                            <div ng-messages="tipoServizioForm.descrizione.$error">
+                                <div ng-message="required">Dato richiesto</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div flex layout="row" flex style="min-height: 100px;">
+                    <div layout="column" layout-align="start" flex="grow" ng-if="tipoServizio.hasCosto()">
+                        <div class="table-content">
+                            <div layout="row" class="table-content-header">
+                                <div layout="column" layout-align="center" flex>Periodo</div>
+                                <div layout="column" layout-align="center" flex>Costo</div>
+                                <div layout="column" layout-align="end end" flex="none" style="width: 34px;">
+                                </div>
+                            </div>
+                            <div class="table-content-scroll">
+                                <div ng-repeat="costo in tipoServizio.costo" layout="row" flex>
+                                    <div layout="column" layout-align="center" flex>
+                                        {{costo.inizioPeriodo| date : "d/M"}}
+                                        -
+                                        {{costo.finePeriodo| date : "d/M"}}
+                                    </div>
+                                    <div layout="column" layout-align="center" flex>
+                                        {{costo.costo}}
+                                    </div>
+                                    <div layout="column" layout-align="center" flex="none">
+                                        <md-icon md-svg-icon="img/material.io/ic_mode_edit_24px.svg"
+                                                 ng-click="editCost($event, costo)">
+                                        </md-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </md-dialog-content>
+
+    </md-dialog>
+</div>

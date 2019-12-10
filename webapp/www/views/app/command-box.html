@@ -1,0 +1,82 @@
+<div ng-cloak>
+    <md-fab-speed-dial md-direction="left" class="md-fling">
+        <md-fab-trigger>
+            <md-button class="md-fab md-mini md-raised">
+                <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+            </md-button>
+        </md-fab-trigger>
+
+        <md-fab-actions>
+            <md-button aria-label="Cerca" class="md-fab md-mini md-raised"
+                       ng-click="map()">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">
+                    Mappa
+                </md-tooltip>
+                <md-icon md-svg-icon="img/material.io/ic_map_black_24px.svg" aria-label="Cerca">
+                </md-icon>
+            </md-button>
+            <md-button aria-label="Cerca" class="md-fab md-mini md-raised"
+                       ng-click="cerca()">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">
+                    Cerca
+                </md-tooltip>
+                <md-icon md-svg-icon="img/materialdesignicons.com/google/magnify.svg" aria-label="Cerca">
+                </md-icon>
+            </md-button>
+            <md-button aria-label="Aggiungi un cliente" class="md-fab md-mini md-raised"
+                       ng-click="addCliente($event)">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">
+                    Aggiungi un cliente
+                </md-tooltip>
+                <md-icon md-svg-icon="img/material.io/ic_person_24px.svg" aria-label="Aggiungi un cliente">
+                </md-icon>
+            </md-button>
+            <!--
+            // Disabilitato. Non posso aggiornare la postazione che sta in un altro controller.
+            // Così si crea un'incongruenza tra lo stato reale e quello rappresentato sulla mappa.
+            <md-button aria-label="Assegna una postazione" class="md-fab md-mini md-raised"
+                       ng-click="addAssegnamento($event)">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">
+                    Assegna una postazione
+                </md-tooltip>
+                <md-icon md-svg-icon="img/material.io/ic_beach_access_24px.svg" aria-label="Aggiungi un cliente">
+                </md-icon>
+            </md-button>
+            -->
+            <md-button aria-label="Aggiungi un tipo servizio" class="md-fab md-mini md-raised"
+                       ng-click="addTipoServizio($event)">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">
+                    Aggiungi un servizio
+                </md-tooltip>
+                <md-icon md-svg-icon="img/materialdesignicons.com/google/library.svg" aria-label="Aggiungi un servizio">
+                </md-icon>
+            </md-button>
+            <!--
+            <md-button aria-label="Aggiungi una scheda" class="md-fab md-mini md-raised"
+                       ng-click="addScheda()">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">
+                    Aggiungi una scheda
+                </md-tooltip>
+                <md-icon md-svg-icon="img/material.io/ic_credit_card_24px.svg" aria-label="Aggiungi una scheda">
+                </md-icon>
+            </md-button>
+            <md-button aria-label="Aggiungi un operatore" class="md-fab md-mini md-raised"
+                       ng-click="addOperatore()">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">
+                    Aggiungi un operatore
+                </md-tooltip>
+                <md-icon md-svg-icon="img/materialdesignicons.com/cody/account-settings-variant.svg" aria-label="Aggiungi un operatore">
+                </md-icon>
+            </md-button>
+            <md-button aria-label="Aggiungi un abbonamento" class="md-fab md-mini md-raised"
+                       ng-click="addAbbonamento()">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">
+                    Aggiungi un abbonamento
+                </md-tooltip>
+                <md-icon md-svg-icon="img/materialdesignicons.com/austin_andrews/calendar-multiple-check.svg" aria-label="Aggiungi un abbonamento">
+                </md-icon>
+            </md-button>
+        -->
+        </md-fab-actions>
+    </md-fab-speed-dial>
+</div>

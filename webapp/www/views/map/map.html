@@ -1,0 +1,28 @@
+<div class="map">
+    <div class="beach">
+        <table>
+            <tbody>
+                <tr class="sea">
+                    <td></td>
+                    <td ng-repeat="y in map.x[0].element" class="header column-header">
+                        {{y.name}}
+                    </td>
+                </tr>
+                <tr ng-repeat="x in map.x">
+                    <td class="header">
+                        {{x.name}}
+                    </td>
+                    <td ng-repeat="y in x.element" ng-include="'views/map/spot-tile.html'">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="view-command-box command-box-shadow" ng-class="{closed: viewCommandBox.isClosed()}">
+            <md-icon md-svg-icon="img/materialdesignicons.com/austin_andrews/calendar-clock.svg"
+                     class="close-button"
+                     ng-click="options.show($event)"
+                     aria-label="Apri il pannello di ricerca per data">
+            </md-icon>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,1454 @@
+{
+    "variables": [],
+    "info": {
+        "name": "BeachSeat API",
+        "_postman_id": "3ed814b6-05d5-57d9-7fc9-3bb9d452b874",
+        "description": "API per programma gestione spiaggie",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "clienti",
+            "description": "",
+            "item": [
+                {
+                    "name": "http://api.sb.local/clienti?chiave={{chiave}}",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": "http://api.sb.local/clienti?chiave=",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce la lista degli oggetti `Cliente` definiti"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente",
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/clienti/:idCliente",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "clienti",
+                                ":idCliente"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "-1",
+                                    "id": "idCliente"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Anagrafica del `Cliente`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/postazioni?dataInizio={{dataInizio}}&dataFine={{dataFine}}",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/clienti/:idCliente/postazioni?dataInizio=&dataFine=",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "clienti",
+                                ":idCliente",
+                                "postazioni"
+                            ],
+                            "query": [
+                                {
+                                    "key": "dataInizio",
+                                    "value": ""
+                                },
+                                {
+                                    "key": "dataFine",
+                                    "value": ""
+                                }
+                            ],
+                            "variable": [
+                                {
+                                    "value": "-2",
+                                    "id": "idCliente"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce la lista delle postazioni assegnate al cliente"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/clienti/:idCliente/postazioni/:idPostazione?dataInizio={{dataInizio}}&dataFine={{dataFine}}",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/clienti/:idCliente/postazioni/:idPostazione?dataInizio=&dataFine=",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "clienti",
+                                ":idCliente",
+                                "postazioni",
+                                ":idPostazione"
+                            ],
+                            "query": [
+                                {
+                                    "key": "dataInizio",
+                                    "value": ""
+                                },
+                                {
+                                    "key": "dataFine",
+                                    "value": ""
+                                }
+                            ],
+                            "variable": [
+                                {
+                                    "value": "-2",
+                                    "id": "idCliente"
+                                },
+                                {
+                                    "value": "296",
+                                    "id": "idPostazione"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Anagrafica della `Postazione` associata al cliente"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "postazioni",
+            "description": "Folder for postazioni",
+            "item": [
+                {
+                    "name": "http://api.sb.local/postazioni?settore={{settore}}&fila={{fila}}&colonna={{colonna}}&chiave={{chiave}}",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "",
+                                    "",
+                                    "tests[\"Body is correct\"] = responseBody ==='[{\"IdPostazione\":1,\"Fila\":\"A\",\"Colonna\":\"1\",\"Settore\":\"A\",\"Note\":null}]';",
+                                    "",
+                                    "",
+                                    "",
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;",
+                                    ""
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": "http://api.sb.local/postazioni?settore=&fila=a&colonna=1",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce la lista delle postazioni che soddisfano i criteri di ricerca"
+                    },
+                    "response": [
+                        {
+                            "id": "98e8221c-d458-46f7-aa44-fa59355e0593",
+                            "name": "get all postazioni",
+                            "originalRequest": {
+                                "url": "http://api.sb.local/postazioni?settore=&fila=&colonna=",
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json",
+                                        "enabled": true,
+                                        "disabled": false
+                                    }
+                                ],
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "_postman_previewtype": "text",
+                            "header": [
+                                {
+                                    "key": "Access-Control-Allow-Headers",
+                                    "value": "Origin, X-Requested-With, Content-Type, Accept,Authorization",
+                                    "name": "Access-Control-Allow-Headers",
+                                    "description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+                                },
+                                {
+                                    "key": "Access-Control-Allow-Methods",
+                                    "value": "GET, POST, PUT, DELETE, OPTIONS",
+                                    "name": "Access-Control-Allow-Methods",
+                                    "description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+                                },
+                                {
+                                    "key": "Access-Control-Allow-Origin",
+                                    "value": "*",
+                                    "name": "Access-Control-Allow-Origin",
+                                    "description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+                                },
+                                {
+                                    "key": "Cache-control",
+                                    "value": "private, max-age=0, no-cache",
+                                    "name": "Cache-control",
+                                    "description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+                                },
+                                {
+                                    "key": "Connection",
+                                    "value": "Keep-Alive",
+                                    "name": "Connection",
+                                    "description": "Options that are desired for the connection"
+                                },
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json;charset=utf-8",
+                                    "name": "Content-Type",
+                                    "description": "The mime type of this content"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Mon, 22 May 2017 23:48:36 GMT",
+                                    "name": "Date",
+                                    "description": "The date and time that the message was sent"
+                                },
+                                {
+                                    "key": "Keep-Alive",
+                                    "value": "timeout=5, max=100",
+                                    "name": "Keep-Alive",
+                                    "description": "Custom header"
+                                },
+                                {
+                                    "key": "Server",
+                                    "value": "Apache/2.4.18 (Ubuntu)",
+                                    "name": "Server",
+                                    "description": "A name for the server"
+                                },
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked",
+                                    "name": "Transfer-Encoding",
+                                    "description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": 465,
+                            "body": "[{\"IdPostazione\":1,\"Fila\":\"A\",\"Colonna\":\"1\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":2,\"Fila\":\"B\",\"Colonna\":\"1\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":3,\"Fila\":\"C\",\"Colonna\":\"1\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":4,\"Fila\":\"A\",\"Colonna\":\"2\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":5,\"Fila\":\"B\",\"Colonna\":\"2\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":6,\"Fila\":\"C\",\"Colonna\":\"2\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":7,\"Fila\":\"A\",\"Colonna\":\"3\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":8,\"Fila\":\"B\",\"Colonna\":\"3\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":9,\"Fila\":\"C\",\"Colonna\":\"3\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":10,\"Fila\":\"A\",\"Colonna\":\"4\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":11,\"Fila\":\"B\",\"Colonna\":\"4\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":12,\"Fila\":\"C\",\"Colonna\":\"4\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":13,\"Fila\":\"A\",\"Colonna\":\"5\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":14,\"Fila\":\"B\",\"Colonna\":\"5\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":15,\"Fila\":\"C\",\"Colonna\":\"5\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":16,\"Fila\":\"A\",\"Colonna\":\"6\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":17,\"Fila\":\"B\",\"Colonna\":\"6\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":18,\"Fila\":\"C\",\"Colonna\":\"6\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":19,\"Fila\":\"A\",\"Colonna\":\"7\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":20,\"Fila\":\"B\",\"Colonna\":\"7\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":21,\"Fila\":\"A\",\"Colonna\":\"8\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":22,\"Fila\":\"B\",\"Colonna\":\"8\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":23,\"Fila\":\"A\",\"Colonna\":\"9\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":24,\"Fila\":\"B\",\"Colonna\":\"9\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":25,\"Fila\":\"A\",\"Colonna\":\"10\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":26,\"Fila\":\"B\",\"Colonna\":\"10\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":27,\"Fila\":\"A\",\"Colonna\":\"11\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":28,\"Fila\":\"B\",\"Colonna\":\"11\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":29,\"Fila\":\"A\",\"Colonna\":\"12\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":30,\"Fila\":\"B\",\"Colonna\":\"12\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":31,\"Fila\":\"A\",\"Colonna\":\"13\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":32,\"Fila\":\"B\",\"Colonna\":\"13\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":33,\"Fila\":\"C\",\"Colonna\":\"13\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":34,\"Fila\":\"D\",\"Colonna\":\"13\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":35,\"Fila\":\"E\",\"Colonna\":\"13\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":36,\"Fila\":\"A\",\"Colonna\":\"14\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":37,\"Fila\":\"B\",\"Colonna\":\"14\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":38,\"Fila\":\"C\",\"Colonna\":\"14\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":39,\"Fila\":\"D\",\"Colonna\":\"14\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":40,\"Fila\":\"E\",\"Colonna\":\"14\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":41,\"Fila\":\"A\",\"Colonna\":\"15\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":42,\"Fila\":\"B\",\"Colonna\":\"15\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":43,\"Fila\":\"C\",\"Colonna\":\"15\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":44,\"Fila\":\"D\",\"Colonna\":\"15\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":45,\"Fila\":\"E\",\"Colonna\":\"15\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":46,\"Fila\":\"A\",\"Colonna\":\"16\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":47,\"Fila\":\"B\",\"Colonna\":\"16\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":48,\"Fila\":\"C\",\"Colonna\":\"16\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":49,\"Fila\":\"D\",\"Colonna\":\"16\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":50,\"Fila\":\"E\",\"Colonna\":\"16\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":51,\"Fila\":\"A\",\"Colonna\":\"17\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":52,\"Fila\":\"B\",\"Colonna\":\"17\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":53,\"Fila\":\"C\",\"Colonna\":\"17\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":54,\"Fila\":\"D\",\"Colonna\":\"17\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":55,\"Fila\":\"A\",\"Colonna\":\"18\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":56,\"Fila\":\"B\",\"Colonna\":\"18\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":57,\"Fila\":\"C\",\"Colonna\":\"18\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":58,\"Fila\":\"D\",\"Colonna\":\"18\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":59,\"Fila\":\"E\",\"Colonna\":\"18\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":60,\"Fila\":\"A\",\"Colonna\":\"19\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":61,\"Fila\":\"B\",\"Colonna\":\"19\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":62,\"Fila\":\"C\",\"Colonna\":\"19\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":63,\"Fila\":\"D\",\"Colonna\":\"19\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":64,\"Fila\":\"E\",\"Colonna\":\"19\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":65,\"Fila\":\"A\",\"Colonna\":\"20\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":66,\"Fila\":\"B\",\"Colonna\":\"20\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":67,\"Fila\":\"C\",\"Colonna\":\"20\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":68,\"Fila\":\"D\",\"Colonna\":\"20\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":69,\"Fila\":\"E\",\"Colonna\":\"20\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":70,\"Fila\":\"A\",\"Colonna\":\"21\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":71,\"Fila\":\"B\",\"Colonna\":\"21\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":72,\"Fila\":\"C\",\"Colonna\":\"21\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":73,\"Fila\":\"D\",\"Colonna\":\"21\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":74,\"Fila\":\"E\",\"Colonna\":\"21\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":75,\"Fila\":\"A\",\"Colonna\":\"22\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":76,\"Fila\":\"B\",\"Colonna\":\"22\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":77,\"Fila\":\"C\",\"Colonna\":\"22\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":78,\"Fila\":\"D\",\"Colonna\":\"22\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":79,\"Fila\":\"E\",\"Colonna\":\"22\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":80,\"Fila\":\"A\",\"Colonna\":\"23\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":81,\"Fila\":\"B\",\"Colonna\":\"23\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":82,\"Fila\":\"C\",\"Colonna\":\"23\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":83,\"Fila\":\"D\",\"Colonna\":\"23\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":84,\"Fila\":\"E\",\"Colonna\":\"23\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":85,\"Fila\":\"A\",\"Colonna\":\"24\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":86,\"Fila\":\"B\",\"Colonna\":\"24\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":87,\"Fila\":\"C\",\"Colonna\":\"24\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":88,\"Fila\":\"D\",\"Colonna\":\"24\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":89,\"Fila\":\"E\",\"Colonna\":\"24\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":90,\"Fila\":\"A\",\"Colonna\":\"25\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":91,\"Fila\":\"B\",\"Colonna\":\"25\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":92,\"Fila\":\"C\",\"Colonna\":\"25\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":93,\"Fila\":\"D\",\"Colonna\":\"25\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":94,\"Fila\":\"E\",\"Colonna\":\"25\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":95,\"Fila\":\"A\",\"Colonna\":\"26\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":96,\"Fila\":\"B\",\"Colonna\":\"26\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":97,\"Fila\":\"C\",\"Colonna\":\"26\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":98,\"Fila\":\"D\",\"Colonna\":\"26\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":99,\"Fila\":\"E\",\"Colonna\":\"26\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":100,\"Fila\":\"A\",\"Colonna\":\"27\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":101,\"Fila\":\"B\",\"Colonna\":\"27\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":102,\"Fila\":\"C\",\"Colonna\":\"27\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":103,\"Fila\":\"D\",\"Colonna\":\"27\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":104,\"Fila\":\"E\",\"Colonna\":\"27\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":105,\"Fila\":\"A\",\"Colonna\":\"28\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":106,\"Fila\":\"B\",\"Colonna\":\"28\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":107,\"Fila\":\"C\",\"Colonna\":\"28\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":108,\"Fila\":\"D\",\"Colonna\":\"28\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":109,\"Fila\":\"E\",\"Colonna\":\"28\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":110,\"Fila\":\"A\",\"Colonna\":\"29\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":111,\"Fila\":\"B\",\"Colonna\":\"29\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":112,\"Fila\":\"C\",\"Colonna\":\"29\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":113,\"Fila\":\"D\",\"Colonna\":\"29\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":114,\"Fila\":\"E\",\"Colonna\":\"29\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":115,\"Fila\":\"A\",\"Colonna\":\"30\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":116,\"Fila\":\"B\",\"Colonna\":\"30\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":117,\"Fila\":\"C\",\"Colonna\":\"30\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":118,\"Fila\":\"D\",\"Colonna\":\"30\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":119,\"Fila\":\"E\",\"Colonna\":\"30\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":120,\"Fila\":\"A\",\"Colonna\":\"31\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":121,\"Fila\":\"B\",\"Colonna\":\"31\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":122,\"Fila\":\"C\",\"Colonna\":\"31\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":123,\"Fila\":\"D\",\"Colonna\":\"31\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":124,\"Fila\":\"E\",\"Colonna\":\"31\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":125,\"Fila\":\"F\",\"Colonna\":\"31\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":126,\"Fila\":\"G\",\"Colonna\":\"31\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":127,\"Fila\":\"A\",\"Colonna\":\"32\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":128,\"Fila\":\"B\",\"Colonna\":\"32\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":129,\"Fila\":\"C\",\"Colonna\":\"32\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":130,\"Fila\":\"D\",\"Colonna\":\"32\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":131,\"Fila\":\"E\",\"Colonna\":\"32\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":132,\"Fila\":\"F\",\"Colonna\":\"32\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":133,\"Fila\":\"G\",\"Colonna\":\"32\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":134,\"Fila\":\"A\",\"Colonna\":\"33\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":135,\"Fila\":\"B\",\"Colonna\":\"33\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":136,\"Fila\":\"C\",\"Colonna\":\"33\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":137,\"Fila\":\"D\",\"Colonna\":\"33\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":138,\"Fila\":\"E\",\"Colonna\":\"33\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":139,\"Fila\":\"F\",\"Colonna\":\"33\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":140,\"Fila\":\"G\",\"Colonna\":\"33\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":141,\"Fila\":\"A\",\"Colonna\":\"34\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":142,\"Fila\":\"B\",\"Colonna\":\"34\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":143,\"Fila\":\"C\",\"Colonna\":\"34\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":144,\"Fila\":\"D\",\"Colonna\":\"34\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":145,\"Fila\":\"E\",\"Colonna\":\"34\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":146,\"Fila\":\"F\",\"Colonna\":\"34\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":147,\"Fila\":\"G\",\"Colonna\":\"34\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":148,\"Fila\":\"A\",\"Colonna\":\"35\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":149,\"Fila\":\"B\",\"Colonna\":\"35\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":150,\"Fila\":\"C\",\"Colonna\":\"35\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":151,\"Fila\":\"D\",\"Colonna\":\"35\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":152,\"Fila\":\"E\",\"Colonna\":\"35\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":153,\"Fila\":\"F\",\"Colonna\":\"35\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":154,\"Fila\":\"G\",\"Colonna\":\"35\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":155,\"Fila\":\"A\",\"Colonna\":\"36\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":156,\"Fila\":\"B\",\"Colonna\":\"36\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":157,\"Fila\":\"C\",\"Colonna\":\"36\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":158,\"Fila\":\"D\",\"Colonna\":\"36\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":159,\"Fila\":\"E\",\"Colonna\":\"36\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":160,\"Fila\":\"F\",\"Colonna\":\"36\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":161,\"Fila\":\"G\",\"Colonna\":\"36\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":162,\"Fila\":\"A\",\"Colonna\":\"37\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":163,\"Fila\":\"B\",\"Colonna\":\"37\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":164,\"Fila\":\"C\",\"Colonna\":\"37\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":165,\"Fila\":\"D\",\"Colonna\":\"37\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":166,\"Fila\":\"E\",\"Colonna\":\"37\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":167,\"Fila\":\"F\",\"Colonna\":\"37\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":168,\"Fila\":\"G\",\"Colonna\":\"37\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":169,\"Fila\":\"A\",\"Colonna\":\"38\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":170,\"Fila\":\"B\",\"Colonna\":\"38\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":171,\"Fila\":\"C\",\"Colonna\":\"38\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":172,\"Fila\":\"D\",\"Colonna\":\"38\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":173,\"Fila\":\"E\",\"Colonna\":\"38\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":174,\"Fila\":\"F\",\"Colonna\":\"38\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":175,\"Fila\":\"G\",\"Colonna\":\"38\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":176,\"Fila\":\"A\",\"Colonna\":\"39\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":177,\"Fila\":\"B\",\"Colonna\":\"39\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":178,\"Fila\":\"C\",\"Colonna\":\"39\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":179,\"Fila\":\"D\",\"Colonna\":\"39\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":180,\"Fila\":\"E\",\"Colonna\":\"39\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":181,\"Fila\":\"F\",\"Colonna\":\"39\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":182,\"Fila\":\"G\",\"Colonna\":\"39\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":183,\"Fila\":\"A\",\"Colonna\":\"40\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":184,\"Fila\":\"B\",\"Colonna\":\"40\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":185,\"Fila\":\"C\",\"Colonna\":\"40\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":186,\"Fila\":\"D\",\"Colonna\":\"40\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":187,\"Fila\":\"E\",\"Colonna\":\"40\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":188,\"Fila\":\"F\",\"Colonna\":\"40\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":189,\"Fila\":\"G\",\"Colonna\":\"40\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":190,\"Fila\":\"A\",\"Colonna\":\"41\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":191,\"Fila\":\"B\",\"Colonna\":\"41\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":192,\"Fila\":\"C\",\"Colonna\":\"41\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":193,\"Fila\":\"D\",\"Colonna\":\"41\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":194,\"Fila\":\"E\",\"Colonna\":\"41\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":195,\"Fila\":\"F\",\"Colonna\":\"41\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":196,\"Fila\":\"G\",\"Colonna\":\"41\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":197,\"Fila\":\"A\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":198,\"Fila\":\"B\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":199,\"Fila\":\"C\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":200,\"Fila\":\"D\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":201,\"Fila\":\"E\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":202,\"Fila\":\"F\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":203,\"Fila\":\"G\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":204,\"Fila\":\"H\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":205,\"Fila\":\"A\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":206,\"Fila\":\"B\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":207,\"Fila\":\"C\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":208,\"Fila\":\"D\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":209,\"Fila\":\"E\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":210,\"Fila\":\"F\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":211,\"Fila\":\"G\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":212,\"Fila\":\"H\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":213,\"Fila\":\"A\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":214,\"Fila\":\"B\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":215,\"Fila\":\"C\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":216,\"Fila\":\"D\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":217,\"Fila\":\"E\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":218,\"Fila\":\"F\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":219,\"Fila\":\"G\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":220,\"Fila\":\"H\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":221,\"Fila\":\"A\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":222,\"Fila\":\"B\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":223,\"Fila\":\"C\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":224,\"Fila\":\"D\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":225,\"Fila\":\"E\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":226,\"Fila\":\"F\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":227,\"Fila\":\"G\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":228,\"Fila\":\"H\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":229,\"Fila\":\"A\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":230,\"Fila\":\"B\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":231,\"Fila\":\"C\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":232,\"Fila\":\"D\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":233,\"Fila\":\"E\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":234,\"Fila\":\"F\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":235,\"Fila\":\"G\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":236,\"Fila\":\"H\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":237,\"Fila\":\"A\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":238,\"Fila\":\"B\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":239,\"Fila\":\"C\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":240,\"Fila\":\"D\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":241,\"Fila\":\"E\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":242,\"Fila\":\"F\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":243,\"Fila\":\"G\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":244,\"Fila\":\"H\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":245,\"Fila\":\"A\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":246,\"Fila\":\"B\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":247,\"Fila\":\"C\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":248,\"Fila\":\"D\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":249,\"Fila\":\"E\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":250,\"Fila\":\"F\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":251,\"Fila\":\"G\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":252,\"Fila\":\"H\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":253,\"Fila\":\"A\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":254,\"Fila\":\"B\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":255,\"Fila\":\"C\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":256,\"Fila\":\"D\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":257,\"Fila\":\"E\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":258,\"Fila\":\"F\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":259,\"Fila\":\"G\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":260,\"Fila\":\"H\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":261,\"Fila\":\"A\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":262,\"Fila\":\"B\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":263,\"Fila\":\"C\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":264,\"Fila\":\"D\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":265,\"Fila\":\"E\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":266,\"Fila\":\"F\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":267,\"Fila\":\"G\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":268,\"Fila\":\"H\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":269,\"Fila\":\"A\",\"Colonna\":\"51\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":270,\"Fila\":\"B\",\"Colonna\":\"51\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":271,\"Fila\":\"C\",\"Colonna\":\"51\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":272,\"Fila\":\"D\",\"Colonna\":\"51\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":273,\"Fila\":\"E\",\"Colonna\":\"51\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":274,\"Fila\":\"F\",\"Colonna\":\"51\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":275,\"Fila\":\"G\",\"Colonna\":\"51\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":276,\"Fila\":\"A\",\"Colonna\":\"52\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":277,\"Fila\":\"B\",\"Colonna\":\"52\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":278,\"Fila\":\"C\",\"Colonna\":\"52\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":279,\"Fila\":\"D\",\"Colonna\":\"52\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":280,\"Fila\":\"E\",\"Colonna\":\"52\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":281,\"Fila\":\"F\",\"Colonna\":\"52\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":282,\"Fila\":\"G\",\"Colonna\":\"52\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":283,\"Fila\":\"A\",\"Colonna\":\"53\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":284,\"Fila\":\"B\",\"Colonna\":\"53\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":285,\"Fila\":\"C\",\"Colonna\":\"53\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":286,\"Fila\":\"D\",\"Colonna\":\"53\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":287,\"Fila\":\"E\",\"Colonna\":\"53\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":288,\"Fila\":\"F\",\"Colonna\":\"53\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":289,\"Fila\":\"G\",\"Colonna\":\"53\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":290,\"Fila\":\"A\",\"Colonna\":\"54\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":291,\"Fila\":\"A\",\"Colonna\":\"55\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":292,\"Fila\":\"A\",\"Colonna\":\"56\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":293,\"Fila\":\"A\",\"Colonna\":\"57\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":294,\"Fila\":\"A\",\"Colonna\":\"58\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":295,\"Fila\":\"A\",\"Colonna\":\"59\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":296,\"Fila\":\"A\",\"Colonna\":\"60\",\"Settore\":\"D\",\"Note\":null,\"AssegnamentiPostaziones\":[{\"IdAssegnamentoPostazione\":3,\"IdCliente\":-1,\"IdPostazione\":296,\"IdAbbonamento\":-1,\"DataInizio\":\"2017-06-01T00:00:00+02:00\",\"DataFine\":\"2017-06-30T00:00:00+02:00\",\"Note\":null,\"DisponibilitaPostaziones\":[{\"IdDisponibilitaPostazione\":3,\"IdAssegnamentoPostazione\":3,\"DataInizio\":\"2017-06-15T00:00:00+02:00\",\"DataFine\":\"2017-06-20T00:00:00+02:00\",\"SubaffittiPostaziones\":[]}]},{\"IdAssegnamentoPostazione\":4,\"IdCliente\":-2,\"IdPostazione\":296,\"IdAbbonamento\":-1,\"DataInizio\":\"2017-07-01T00:00:00+02:00\",\"DataFine\":\"2017-07-31T00:00:00+02:00\",\"Note\":null,\"DisponibilitaPostaziones\":[{\"IdDisponibilitaPostazione\":4,\"IdAssegnamentoPostazione\":4,\"DataInizio\":\"2017-07-25T00:00:00+02:00\",\"DataFine\":\"2017-07-27T00:00:00+02:00\",\"SubaffittiPostaziones\":[]},{\"IdDisponibilitaPostazione\":5,\"IdAssegnamentoPostazione\":4,\"DataInizio\":\"2017-07-15T00:00:00+02:00\",\"DataFine\":\"2017-07-17T00:00:00+02:00\",\"SubaffittiPostaziones\":[]}]}]},{\"IdPostazione\":297,\"Fila\":\"A\",\"Colonna\":\"61\",\"Settore\":\"D\",\"Note\":null}]"
+                        },
+                        {
+                            "id": "00485d06-09fb-4285-9f81-2d963ebe5fa3",
+                            "name": "get tutte le postazioni",
+                            "originalRequest": {
+                                "url": "http://api.sb.local/postazioni?settore=&fila=&colonna=",
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json",
+                                        "enabled": true,
+                                        "disabled": false
+                                    }
+                                ],
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "_postman_previewtype": "text",
+                            "header": [
+                                {
+                                    "key": "Access-Control-Allow-Headers",
+                                    "value": "Origin, X-Requested-With, Content-Type, Accept,Authorization",
+                                    "name": "Access-Control-Allow-Headers",
+                                    "description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+                                },
+                                {
+                                    "key": "Access-Control-Allow-Methods",
+                                    "value": "GET, POST, PUT, DELETE, OPTIONS",
+                                    "name": "Access-Control-Allow-Methods",
+                                    "description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+                                },
+                                {
+                                    "key": "Access-Control-Allow-Origin",
+                                    "value": "*",
+                                    "name": "Access-Control-Allow-Origin",
+                                    "description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+                                },
+                                {
+                                    "key": "Cache-control",
+                                    "value": "private, max-age=0, no-cache",
+                                    "name": "Cache-control",
+                                    "description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+                                },
+                                {
+                                    "key": "Connection",
+                                    "value": "Keep-Alive",
+                                    "name": "Connection",
+                                    "description": "Options that are desired for the connection"
+                                },
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json;charset=utf-8",
+                                    "name": "Content-Type",
+                                    "description": "The mime type of this content"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Mon, 22 May 2017 23:48:36 GMT",
+                                    "name": "Date",
+                                    "description": "The date and time that the message was sent"
+                                },
+                                {
+                                    "key": "Keep-Alive",
+                                    "value": "timeout=5, max=100",
+                                    "name": "Keep-Alive",
+                                    "description": "Custom header"
+                                },
+                                {
+                                    "key": "Server",
+                                    "value": "Apache/2.4.18 (Ubuntu)",
+                                    "name": "Server",
+                                    "description": "A name for the server"
+                                },
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked",
+                                    "name": "Transfer-Encoding",
+                                    "description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": 465,
+                            "body": "[{\"IdPostazione\":1,\"Fila\":\"A\",\"Colonna\":\"1\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":2,\"Fila\":\"B\",\"Colonna\":\"1\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":3,\"Fila\":\"C\",\"Colonna\":\"1\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":4,\"Fila\":\"A\",\"Colonna\":\"2\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":5,\"Fila\":\"B\",\"Colonna\":\"2\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":6,\"Fila\":\"C\",\"Colonna\":\"2\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":7,\"Fila\":\"A\",\"Colonna\":\"3\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":8,\"Fila\":\"B\",\"Colonna\":\"3\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":9,\"Fila\":\"C\",\"Colonna\":\"3\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":10,\"Fila\":\"A\",\"Colonna\":\"4\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":11,\"Fila\":\"B\",\"Colonna\":\"4\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":12,\"Fila\":\"C\",\"Colonna\":\"4\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":13,\"Fila\":\"A\",\"Colonna\":\"5\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":14,\"Fila\":\"B\",\"Colonna\":\"5\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":15,\"Fila\":\"C\",\"Colonna\":\"5\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":16,\"Fila\":\"A\",\"Colonna\":\"6\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":17,\"Fila\":\"B\",\"Colonna\":\"6\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":18,\"Fila\":\"C\",\"Colonna\":\"6\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":19,\"Fila\":\"A\",\"Colonna\":\"7\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":20,\"Fila\":\"B\",\"Colonna\":\"7\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":21,\"Fila\":\"A\",\"Colonna\":\"8\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":22,\"Fila\":\"B\",\"Colonna\":\"8\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":23,\"Fila\":\"A\",\"Colonna\":\"9\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":24,\"Fila\":\"B\",\"Colonna\":\"9\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":25,\"Fila\":\"A\",\"Colonna\":\"10\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":26,\"Fila\":\"B\",\"Colonna\":\"10\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":27,\"Fila\":\"A\",\"Colonna\":\"11\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":28,\"Fila\":\"B\",\"Colonna\":\"11\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":29,\"Fila\":\"A\",\"Colonna\":\"12\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":30,\"Fila\":\"B\",\"Colonna\":\"12\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":31,\"Fila\":\"A\",\"Colonna\":\"13\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":32,\"Fila\":\"B\",\"Colonna\":\"13\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":33,\"Fila\":\"C\",\"Colonna\":\"13\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":34,\"Fila\":\"D\",\"Colonna\":\"13\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":35,\"Fila\":\"E\",\"Colonna\":\"13\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":36,\"Fila\":\"A\",\"Colonna\":\"14\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":37,\"Fila\":\"B\",\"Colonna\":\"14\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":38,\"Fila\":\"C\",\"Colonna\":\"14\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":39,\"Fila\":\"D\",\"Colonna\":\"14\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":40,\"Fila\":\"E\",\"Colonna\":\"14\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":41,\"Fila\":\"A\",\"Colonna\":\"15\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":42,\"Fila\":\"B\",\"Colonna\":\"15\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":43,\"Fila\":\"C\",\"Colonna\":\"15\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":44,\"Fila\":\"D\",\"Colonna\":\"15\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":45,\"Fila\":\"E\",\"Colonna\":\"15\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":46,\"Fila\":\"A\",\"Colonna\":\"16\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":47,\"Fila\":\"B\",\"Colonna\":\"16\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":48,\"Fila\":\"C\",\"Colonna\":\"16\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":49,\"Fila\":\"D\",\"Colonna\":\"16\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":50,\"Fila\":\"E\",\"Colonna\":\"16\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":51,\"Fila\":\"A\",\"Colonna\":\"17\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":52,\"Fila\":\"B\",\"Colonna\":\"17\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":53,\"Fila\":\"C\",\"Colonna\":\"17\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":54,\"Fila\":\"D\",\"Colonna\":\"17\",\"Settore\":\"A\",\"Note\":null},{\"IdPostazione\":55,\"Fila\":\"A\",\"Colonna\":\"18\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":56,\"Fila\":\"B\",\"Colonna\":\"18\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":57,\"Fila\":\"C\",\"Colonna\":\"18\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":58,\"Fila\":\"D\",\"Colonna\":\"18\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":59,\"Fila\":\"E\",\"Colonna\":\"18\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":60,\"Fila\":\"A\",\"Colonna\":\"19\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":61,\"Fila\":\"B\",\"Colonna\":\"19\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":62,\"Fila\":\"C\",\"Colonna\":\"19\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":63,\"Fila\":\"D\",\"Colonna\":\"19\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":64,\"Fila\":\"E\",\"Colonna\":\"19\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":65,\"Fila\":\"A\",\"Colonna\":\"20\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":66,\"Fila\":\"B\",\"Colonna\":\"20\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":67,\"Fila\":\"C\",\"Colonna\":\"20\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":68,\"Fila\":\"D\",\"Colonna\":\"20\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":69,\"Fila\":\"E\",\"Colonna\":\"20\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":70,\"Fila\":\"A\",\"Colonna\":\"21\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":71,\"Fila\":\"B\",\"Colonna\":\"21\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":72,\"Fila\":\"C\",\"Colonna\":\"21\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":73,\"Fila\":\"D\",\"Colonna\":\"21\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":74,\"Fila\":\"E\",\"Colonna\":\"21\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":75,\"Fila\":\"A\",\"Colonna\":\"22\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":76,\"Fila\":\"B\",\"Colonna\":\"22\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":77,\"Fila\":\"C\",\"Colonna\":\"22\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":78,\"Fila\":\"D\",\"Colonna\":\"22\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":79,\"Fila\":\"E\",\"Colonna\":\"22\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":80,\"Fila\":\"A\",\"Colonna\":\"23\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":81,\"Fila\":\"B\",\"Colonna\":\"23\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":82,\"Fila\":\"C\",\"Colonna\":\"23\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":83,\"Fila\":\"D\",\"Colonna\":\"23\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":84,\"Fila\":\"E\",\"Colonna\":\"23\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":85,\"Fila\":\"A\",\"Colonna\":\"24\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":86,\"Fila\":\"B\",\"Colonna\":\"24\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":87,\"Fila\":\"C\",\"Colonna\":\"24\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":88,\"Fila\":\"D\",\"Colonna\":\"24\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":89,\"Fila\":\"E\",\"Colonna\":\"24\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":90,\"Fila\":\"A\",\"Colonna\":\"25\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":91,\"Fila\":\"B\",\"Colonna\":\"25\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":92,\"Fila\":\"C\",\"Colonna\":\"25\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":93,\"Fila\":\"D\",\"Colonna\":\"25\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":94,\"Fila\":\"E\",\"Colonna\":\"25\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":95,\"Fila\":\"A\",\"Colonna\":\"26\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":96,\"Fila\":\"B\",\"Colonna\":\"26\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":97,\"Fila\":\"C\",\"Colonna\":\"26\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":98,\"Fila\":\"D\",\"Colonna\":\"26\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":99,\"Fila\":\"E\",\"Colonna\":\"26\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":100,\"Fila\":\"A\",\"Colonna\":\"27\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":101,\"Fila\":\"B\",\"Colonna\":\"27\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":102,\"Fila\":\"C\",\"Colonna\":\"27\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":103,\"Fila\":\"D\",\"Colonna\":\"27\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":104,\"Fila\":\"E\",\"Colonna\":\"27\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":105,\"Fila\":\"A\",\"Colonna\":\"28\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":106,\"Fila\":\"B\",\"Colonna\":\"28\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":107,\"Fila\":\"C\",\"Colonna\":\"28\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":108,\"Fila\":\"D\",\"Colonna\":\"28\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":109,\"Fila\":\"E\",\"Colonna\":\"28\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":110,\"Fila\":\"A\",\"Colonna\":\"29\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":111,\"Fila\":\"B\",\"Colonna\":\"29\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":112,\"Fila\":\"C\",\"Colonna\":\"29\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":113,\"Fila\":\"D\",\"Colonna\":\"29\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":114,\"Fila\":\"E\",\"Colonna\":\"29\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":115,\"Fila\":\"A\",\"Colonna\":\"30\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":116,\"Fila\":\"B\",\"Colonna\":\"30\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":117,\"Fila\":\"C\",\"Colonna\":\"30\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":118,\"Fila\":\"D\",\"Colonna\":\"30\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":119,\"Fila\":\"E\",\"Colonna\":\"30\",\"Settore\":\"B\",\"Note\":null},{\"IdPostazione\":120,\"Fila\":\"A\",\"Colonna\":\"31\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":121,\"Fila\":\"B\",\"Colonna\":\"31\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":122,\"Fila\":\"C\",\"Colonna\":\"31\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":123,\"Fila\":\"D\",\"Colonna\":\"31\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":124,\"Fila\":\"E\",\"Colonna\":\"31\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":125,\"Fila\":\"F\",\"Colonna\":\"31\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":126,\"Fila\":\"G\",\"Colonna\":\"31\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":127,\"Fila\":\"A\",\"Colonna\":\"32\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":128,\"Fila\":\"B\",\"Colonna\":\"32\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":129,\"Fila\":\"C\",\"Colonna\":\"32\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":130,\"Fila\":\"D\",\"Colonna\":\"32\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":131,\"Fila\":\"E\",\"Colonna\":\"32\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":132,\"Fila\":\"F\",\"Colonna\":\"32\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":133,\"Fila\":\"G\",\"Colonna\":\"32\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":134,\"Fila\":\"A\",\"Colonna\":\"33\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":135,\"Fila\":\"B\",\"Colonna\":\"33\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":136,\"Fila\":\"C\",\"Colonna\":\"33\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":137,\"Fila\":\"D\",\"Colonna\":\"33\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":138,\"Fila\":\"E\",\"Colonna\":\"33\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":139,\"Fila\":\"F\",\"Colonna\":\"33\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":140,\"Fila\":\"G\",\"Colonna\":\"33\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":141,\"Fila\":\"A\",\"Colonna\":\"34\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":142,\"Fila\":\"B\",\"Colonna\":\"34\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":143,\"Fila\":\"C\",\"Colonna\":\"34\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":144,\"Fila\":\"D\",\"Colonna\":\"34\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":145,\"Fila\":\"E\",\"Colonna\":\"34\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":146,\"Fila\":\"F\",\"Colonna\":\"34\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":147,\"Fila\":\"G\",\"Colonna\":\"34\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":148,\"Fila\":\"A\",\"Colonna\":\"35\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":149,\"Fila\":\"B\",\"Colonna\":\"35\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":150,\"Fila\":\"C\",\"Colonna\":\"35\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":151,\"Fila\":\"D\",\"Colonna\":\"35\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":152,\"Fila\":\"E\",\"Colonna\":\"35\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":153,\"Fila\":\"F\",\"Colonna\":\"35\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":154,\"Fila\":\"G\",\"Colonna\":\"35\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":155,\"Fila\":\"A\",\"Colonna\":\"36\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":156,\"Fila\":\"B\",\"Colonna\":\"36\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":157,\"Fila\":\"C\",\"Colonna\":\"36\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":158,\"Fila\":\"D\",\"Colonna\":\"36\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":159,\"Fila\":\"E\",\"Colonna\":\"36\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":160,\"Fila\":\"F\",\"Colonna\":\"36\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":161,\"Fila\":\"G\",\"Colonna\":\"36\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":162,\"Fila\":\"A\",\"Colonna\":\"37\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":163,\"Fila\":\"B\",\"Colonna\":\"37\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":164,\"Fila\":\"C\",\"Colonna\":\"37\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":165,\"Fila\":\"D\",\"Colonna\":\"37\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":166,\"Fila\":\"E\",\"Colonna\":\"37\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":167,\"Fila\":\"F\",\"Colonna\":\"37\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":168,\"Fila\":\"G\",\"Colonna\":\"37\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":169,\"Fila\":\"A\",\"Colonna\":\"38\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":170,\"Fila\":\"B\",\"Colonna\":\"38\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":171,\"Fila\":\"C\",\"Colonna\":\"38\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":172,\"Fila\":\"D\",\"Colonna\":\"38\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":173,\"Fila\":\"E\",\"Colonna\":\"38\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":174,\"Fila\":\"F\",\"Colonna\":\"38\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":175,\"Fila\":\"G\",\"Colonna\":\"38\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":176,\"Fila\":\"A\",\"Colonna\":\"39\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":177,\"Fila\":\"B\",\"Colonna\":\"39\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":178,\"Fila\":\"C\",\"Colonna\":\"39\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":179,\"Fila\":\"D\",\"Colonna\":\"39\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":180,\"Fila\":\"E\",\"Colonna\":\"39\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":181,\"Fila\":\"F\",\"Colonna\":\"39\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":182,\"Fila\":\"G\",\"Colonna\":\"39\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":183,\"Fila\":\"A\",\"Colonna\":\"40\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":184,\"Fila\":\"B\",\"Colonna\":\"40\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":185,\"Fila\":\"C\",\"Colonna\":\"40\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":186,\"Fila\":\"D\",\"Colonna\":\"40\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":187,\"Fila\":\"E\",\"Colonna\":\"40\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":188,\"Fila\":\"F\",\"Colonna\":\"40\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":189,\"Fila\":\"G\",\"Colonna\":\"40\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":190,\"Fila\":\"A\",\"Colonna\":\"41\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":191,\"Fila\":\"B\",\"Colonna\":\"41\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":192,\"Fila\":\"C\",\"Colonna\":\"41\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":193,\"Fila\":\"D\",\"Colonna\":\"41\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":194,\"Fila\":\"E\",\"Colonna\":\"41\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":195,\"Fila\":\"F\",\"Colonna\":\"41\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":196,\"Fila\":\"G\",\"Colonna\":\"41\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":197,\"Fila\":\"A\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":198,\"Fila\":\"B\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":199,\"Fila\":\"C\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":200,\"Fila\":\"D\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":201,\"Fila\":\"E\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":202,\"Fila\":\"F\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":203,\"Fila\":\"G\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":204,\"Fila\":\"H\",\"Colonna\":\"42\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":205,\"Fila\":\"A\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":206,\"Fila\":\"B\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":207,\"Fila\":\"C\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":208,\"Fila\":\"D\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":209,\"Fila\":\"E\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":210,\"Fila\":\"F\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":211,\"Fila\":\"G\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":212,\"Fila\":\"H\",\"Colonna\":\"43\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":213,\"Fila\":\"A\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":214,\"Fila\":\"B\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":215,\"Fila\":\"C\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":216,\"Fila\":\"D\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":217,\"Fila\":\"E\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":218,\"Fila\":\"F\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":219,\"Fila\":\"G\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":220,\"Fila\":\"H\",\"Colonna\":\"44\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":221,\"Fila\":\"A\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":222,\"Fila\":\"B\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":223,\"Fila\":\"C\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":224,\"Fila\":\"D\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":225,\"Fila\":\"E\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":226,\"Fila\":\"F\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":227,\"Fila\":\"G\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":228,\"Fila\":\"H\",\"Colonna\":\"45\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":229,\"Fila\":\"A\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":230,\"Fila\":\"B\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":231,\"Fila\":\"C\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":232,\"Fila\":\"D\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":233,\"Fila\":\"E\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":234,\"Fila\":\"F\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":235,\"Fila\":\"G\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":236,\"Fila\":\"H\",\"Colonna\":\"46\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":237,\"Fila\":\"A\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":238,\"Fila\":\"B\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":239,\"Fila\":\"C\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":240,\"Fila\":\"D\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":241,\"Fila\":\"E\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":242,\"Fila\":\"F\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":243,\"Fila\":\"G\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":244,\"Fila\":\"H\",\"Colonna\":\"47\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":245,\"Fila\":\"A\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":246,\"Fila\":\"B\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":247,\"Fila\":\"C\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":248,\"Fila\":\"D\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":249,\"Fila\":\"E\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":250,\"Fila\":\"F\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":251,\"Fila\":\"G\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":252,\"Fila\":\"H\",\"Colonna\":\"48\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":253,\"Fila\":\"A\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":254,\"Fila\":\"B\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":255,\"Fila\":\"C\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":256,\"Fila\":\"D\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":257,\"Fila\":\"E\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":258,\"Fila\":\"F\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":259,\"Fila\":\"G\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":260,\"Fila\":\"H\",\"Colonna\":\"49\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":261,\"Fila\":\"A\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":262,\"Fila\":\"B\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":263,\"Fila\":\"C\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":264,\"Fila\":\"D\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":265,\"Fila\":\"E\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":266,\"Fila\":\"F\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":267,\"Fila\":\"G\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":268,\"Fila\":\"H\",\"Colonna\":\"50\",\"Settore\":\"C\",\"Note\":null},{\"IdPostazione\":269,\"Fila\":\"A\",\"Colonna\":\"51\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":270,\"Fila\":\"B\",\"Colonna\":\"51\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":271,\"Fila\":\"C\",\"Colonna\":\"51\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":272,\"Fila\":\"D\",\"Colonna\":\"51\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":273,\"Fila\":\"E\",\"Colonna\":\"51\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":274,\"Fila\":\"F\",\"Colonna\":\"51\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":275,\"Fila\":\"G\",\"Colonna\":\"51\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":276,\"Fila\":\"A\",\"Colonna\":\"52\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":277,\"Fila\":\"B\",\"Colonna\":\"52\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":278,\"Fila\":\"C\",\"Colonna\":\"52\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":279,\"Fila\":\"D\",\"Colonna\":\"52\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":280,\"Fila\":\"E\",\"Colonna\":\"52\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":281,\"Fila\":\"F\",\"Colonna\":\"52\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":282,\"Fila\":\"G\",\"Colonna\":\"52\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":283,\"Fila\":\"A\",\"Colonna\":\"53\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":284,\"Fila\":\"B\",\"Colonna\":\"53\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":285,\"Fila\":\"C\",\"Colonna\":\"53\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":286,\"Fila\":\"D\",\"Colonna\":\"53\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":287,\"Fila\":\"E\",\"Colonna\":\"53\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":288,\"Fila\":\"F\",\"Colonna\":\"53\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":289,\"Fila\":\"G\",\"Colonna\":\"53\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":290,\"Fila\":\"A\",\"Colonna\":\"54\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":291,\"Fila\":\"A\",\"Colonna\":\"55\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":292,\"Fila\":\"A\",\"Colonna\":\"56\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":293,\"Fila\":\"A\",\"Colonna\":\"57\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":294,\"Fila\":\"A\",\"Colonna\":\"58\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":295,\"Fila\":\"A\",\"Colonna\":\"59\",\"Settore\":\"D\",\"Note\":null},{\"IdPostazione\":296,\"Fila\":\"A\",\"Colonna\":\"60\",\"Settore\":\"D\",\"Note\":null,\"AssegnamentiPostaziones\":[{\"IdAssegnamentoPostazione\":3,\"IdCliente\":-1,\"IdPostazione\":296,\"IdAbbonamento\":-1,\"DataInizio\":\"2017-06-01T00:00:00+02:00\",\"DataFine\":\"2017-06-30T00:00:00+02:00\",\"Note\":null,\"DisponibilitaPostaziones\":[{\"IdDisponibilitaPostazione\":3,\"IdAssegnamentoPostazione\":3,\"DataInizio\":\"2017-06-15T00:00:00+02:00\",\"DataFine\":\"2017-06-20T00:00:00+02:00\",\"SubaffittiPostaziones\":[]}]},{\"IdAssegnamentoPostazione\":4,\"IdCliente\":-2,\"IdPostazione\":296,\"IdAbbonamento\":-1,\"DataInizio\":\"2017-07-01T00:00:00+02:00\",\"DataFine\":\"2017-07-31T00:00:00+02:00\",\"Note\":null,\"DisponibilitaPostaziones\":[{\"IdDisponibilitaPostazione\":4,\"IdAssegnamentoPostazione\":4,\"DataInizio\":\"2017-07-25T00:00:00+02:00\",\"DataFine\":\"2017-07-27T00:00:00+02:00\",\"SubaffittiPostaziones\":[]},{\"IdDisponibilitaPostazione\":5,\"IdAssegnamentoPostazione\":4,\"DataInizio\":\"2017-07-15T00:00:00+02:00\",\"DataFine\":\"2017-07-17T00:00:00+02:00\",\"SubaffittiPostaziones\":[]}]}]},{\"IdPostazione\":297,\"Fila\":\"A\",\"Colonna\":\"61\",\"Settore\":\"D\",\"Note\":null}]"
+                        }
+                    ]
+                },
+                {
+                    "name": "http://api.sb.local/postazioni",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;",
+                                    ""
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": "http://api.sb.local/postazioni",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\t\"id_postazione\":300,\n\t\"fila\":\"z\",\n\t\"colonna\":\"z\"\n}"
+                        },
+                        "description": "Crea una postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/1/",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;",
+                                    ""
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "1",
+                                    "id": "idPostazione"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce l'anagrafica della `Postazione`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "tests[\"Body is correct\"] = responseBody === '{\"IdPostazione\":300,\"Fila\":\"z\",\"Colonna\":\"z\",\"Settore\":\"0\",\"Note\":null}'",
+                                    "                                             ",
+                                    "",
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "300",
+                                    "id": "idPostazione"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"fila\":\"z\",\n\"colonna\":\"z\"\n}"
+                        },
+                        "description": "Aggiorna la `Postazione`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione",
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "300",
+                                    "id": "idPostazione"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Elimina la `Postazione`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti?dataInizio={{dataInizio}}&dataFine={{dataFine}}",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/assegnamenti?dataInizio=&dataFine=",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "assegnamenti"
+                            ],
+                            "query": [
+                                {
+                                    "key": "dataInizio",
+                                    "value": ""
+                                },
+                                {
+                                    "key": "dataFine",
+                                    "value": ""
+                                }
+                            ],
+                            "variable": [
+                                {
+                                    "value": "296",
+                                    "id": "idPostazione"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce gli assegnamenti della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/assegnamenti",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "assegnamenti"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "1",
+                                    "id": "idPostazione"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"idCliente\":\"-2\",\n\"idAbbonamento\":\"-5\",\n\"dataFine\":\"2017-09-15\",\n\"dataInizio\":\"2017-06-01\",\n\"note\":\"\"\n}\n\t\n"
+                        },
+                        "description": "Assegna la postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "assegnamenti",
+                                ":idAssegnamento"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "1",
+                                    "id": "idPostazione"
+                                },
+                                {
+                                    "value": "5",
+                                    "id": "idAssegnamento"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce l'assegnamento della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento",
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento?{\"idCliente\":\"-2\",\n\"idAbbonamento\":\"-5\",\n\"dataFine\":\"2017-09-15\",\n\"dataInizio\":\"2017-06-01\",\n\"note\":\"\"\n}",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "assegnamenti",
+                                ":idAssegnamento"
+                            ],
+                            "query": [
+                                {
+                                    "key": "{\"idCliente\":\"-2\",\n\"idAbbonamento\":\"-5\",\n\"dataFine\":\"2017-09-15\",\n\"dataInizio\":\"2017-06-01\",\n\"note\":\"\"\n}",
+                                    "value": ""
+                                }
+                            ],
+                            "variable": [
+                                {
+                                    "value": "1",
+                                    "id": "idPostazione"
+                                },
+                                {
+                                    "value": "6",
+                                    "id": "idAssegnamento"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"idCliente\":\"-2\",\n\"idAbbonamento\":\"-5\",\n\"dataFine\":\"2017-09-15\",\n\"dataInizio\":\"2017-06-01\",\n\"note\":\"\"\n}\n\t\n"
+                        },
+                        "description": "Aggiorna l'assegnamento"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento",
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "assegnamenti",
+                                ":idAssegnamento"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "",
+                                    "id": "idPostazione"
+                                },
+                                {
+                                    "value": "",
+                                    "id": "idAssegnamento"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Cancella l'assegnamento la postazione. ***TODO*** Come gestiamo eventuali dati collegati alla postazione e già registrati?"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "assegnamenti",
+                                ":idAssegnamento",
+                                "disponibilita"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "1",
+                                    "id": "idPostazione"
+                                },
+                                {
+                                    "value": "5",
+                                    "id": "idAssegnamento"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce le disponibilità della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita",
+                    "request": {
+                        "url": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\"dataInizio\":\"2017-08-01\",\n\"dataFine\":\"2017-08-15\"\n}\n\t\n"
+                        },
+                        "description": "Aggiunge una disponibilità della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "assegnamenti",
+                                ":idAssegnamento",
+                                "disponibilita",
+                                ":idDisponibilita"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "1",
+                                    "id": "idPostazione"
+                                },
+                                {
+                                    "value": "5",
+                                    "id": "idAssegnamento"
+                                },
+                                {
+                                    "value": "6",
+                                    "id": "idDisponibilita"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce la disponibilità della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "assegnamenti",
+                                ":idAssegnamento",
+                                "disponibilita",
+                                ":idDisponibilita"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "1",
+                                    "id": "idPostazione"
+                                },
+                                {
+                                    "value": "5",
+                                    "id": "idAssegnamento"
+                                },
+                                {
+                                    "value": "6",
+                                    "id": "idDisponibilita"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"dataFine\":\"2017-08-15\",\n\"dataInizio\":\"2017-08-10\"\n}\n\t"
+                        },
+                        "description": "Aggiorna la disponibilità della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita",
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "assegnamenti",
+                                ":idAssegnamento",
+                                "disponibilita",
+                                ":idDisponibilita"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "1",
+                                    "id": "idPostazione"
+                                },
+                                {
+                                    "value": "5",
+                                    "id": "idAssegnamento"
+                                },
+                                {
+                                    "value": "6",
+                                    "id": "idDisponibilita"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Cancella la disponibilità della postazione. ***TODO*** Come gestiamo eventuali subaffitti già registrati?"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti",
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "assegnamenti",
+                                ":idAssegnamento",
+                                "disponibilita",
+                                ":idDisponibilita",
+                                "subaffitti"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "1",
+                                    "id": "idPostazione"
+                                },
+                                {
+                                    "value": "5",
+                                    "id": "idAssegnamento"
+                                },
+                                {
+                                    "value": "7",
+                                    "id": "idDisponibilita"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"dataInizio\":\"2017-08-10\",\n\"dataFine\":\"2017-08-15\"}"
+                        },
+                        "description": "Aggiunge un subaffitto alla postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti",
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "assegnamenti",
+                                ":idAssegnamento",
+                                "disponibilita",
+                                ":idDisponibilita",
+                                "subaffitti"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "1",
+                                    "id": "idPostazione"
+                                },
+                                {
+                                    "value": "5",
+                                    "id": "idAssegnamento"
+                                },
+                                {
+                                    "value": "7",
+                                    "id": "idDisponibilita"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce i subaffitti della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti/:idSubaffitto",
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/assegnamenti/:idAssegnamento/disponibilita/:idDisponibilita/subaffitti/:idSubaffitto",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "assegnamenti",
+                                ":idAssegnamento",
+                                "disponibilita",
+                                ":idDisponibilita",
+                                "subaffitti",
+                                ":idSubaffitto"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "1",
+                                    "id": "idPostazione"
+                                },
+                                {
+                                    "value": "5",
+                                    "id": "idAssegnamento"
+                                },
+                                {
+                                    "value": "7",
+                                    "id": "idDisponibilita"
+                                },
+                                {
+                                    "value": "3",
+                                    "id": "idSubaffitto"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce il subaffitto della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/servizi/:idServizio",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/servizi",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "servizi"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "1",
+                                    "id": "idPostazione"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce il servizio della postazione"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/servizi?dataInizio={{dataInizio}}&dataFine={{dataFine}}",
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/servizi?dataInizio=&dataFine=",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "servizi"
+                            ],
+                            "query": [
+                                {
+                                    "key": "dataInizio",
+                                    "value": ""
+                                },
+                                {
+                                    "key": "dataFine",
+                                    "value": ""
+                                }
+                            ],
+                            "variable": [
+                                {
+                                    "value": "1",
+                                    "id": "idPostazione"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {},
+                        "description": "Restituisce i servizi della postazione. \n***TODO*** da rivedere. La gestione dei servizi lato cliente andrebbe fatta su *cliente/id/postazioni/id/servizi* per \"blindare\" id cliente e id postazione\n"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://api.sb.local/postazioni/:idPostazione/servizi",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "tests[\"Status code is 200\"] = responseCode.code === 200;"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "url": {
+                            "raw": "http://api.sb.local/postazioni/:idPostazione/servizi",
+                            "protocol": "http",
+                            "auth": {},
+                            "host": [
+                                "api",
+                                "sb",
+                                "local"
+                            ],
+                            "path": [
+                                "postazioni",
+                                ":idPostazione",
+                                "servizi"
+                            ],
+                            "variable": [
+                                {
+                                    "value": "1",
+                                    "id": "idPostazione"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "idTipoServizio",
+                                    "value": "1",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "dataInizio",
+                                    "value": "2017-08-01",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "dataFine",
+                                    "value": "2017-08-02",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "qta",
+                                    "value": "2",
+                                    "type": "text",
+                                    "enabled": true
+                                }
+                            ]
+                        },
+                        "description": "Aggiunge un servizio sulla postazione"
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,9 @@
+# Per il deploy su spiaggiamia.it è sufficiente specificare le direttive
+# per lo URL rewrite nel file .htaccess
+# Il file va copiato nella document root (sb/backend/api)
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+

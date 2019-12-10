@@ -1,0 +1,29 @@
+{
+  "name": "sb",
+  "authors": [
+    "Davide Bologna <davide.bologna72@gmail.com>",
+    "Matteo Angelotti <matteo.angelotti76@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "Closed source",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-resource": "^1.6.4",
+    "angular-material": "^1.1.4",
+    "angular-route": "^1.6.4",
+    "angular-animate": "^1.6.4",
+    "angular-aria": "^1.6.4",
+    "angular-messages": "^1.6.4",
+    "angular": "^1.6.4",
+    "angular-i18n": "^1.6.4"
+  }
+}

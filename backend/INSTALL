@@ -1,0 +1,83 @@
+RESTORE FROM SVN
+----------------
+
+After a checkout from svn it is necessary to download all dependencies. That
+is done in different ways for the backend and the webapp.
+
+- Backend
+
+From the command line, run composer install to download dependecies
+$ php composer.phar install
+
+- Webapp
+
+...
+...
+
+- Log directory
+
+The log directory must be world-writable. Improper permission will provoke
+errors in the api. Restore permission executing:
+$ chmod 777 logs
+
+
+REBUILD FROM SCRATCH
+--------------------
+
+# apt-get install php apache2
+# cat bs/conf/hosts.conf >> /etc/hosts
+# cp bs/conf/vhost /etc/apache2/sites-available/bs.local
+# ln -s /etc/apache2/sites-available/bs.local /etc/apache2/sites-enabled/100-bs.local.conf
+
+$ cd bs/trunk/backend
+$ wget http://getcomposer.org/composer.phar
+$ php composer.phar init
+$ cat composer.json 
+{
+    "name": "bs/backend",
+    "type": "pro",
+    "minimum-stability": "dev",
+    "require": {
+	"propel/propel": "~2.0@dev",
+        "slim/slim": "3.*",
+        "monolog/monolog": "1.*"
+    },
+    "autoload": {
+        "classmap": ["generated-class/"] 
+    }
+}
+$ php composer.phar install                     (installa le dipendenze)
+
+$ mkdir conf                                    (project configuration dir)
+$ vendor/bin/propel init
+  Please pick your favorite database management system: mysql
+  Please enter your database host: localhost
+  Please enter your database port: 3306 
+  Please enter your database name: dbspiaggie
+  Please enter your database user [root]: 
+  Please enter your database password: ....
+  Which charset would you like to use? utf8
+  Do you have an existing database you want to use with propel? Yes
+  Where do you want to store your schema.xml? generated-conf
+  Where do you want propel to save the generated php models? generated-class
+  Which namespace should the generated php models use? leave blank
+  Please enter the format to use for the generated configuration file (yml, xml, json, ini, php): yml
+  Is everything correct? [no]: yes
+  + generated-conf/schema.xml
+  + /home/dbolog/Projects/bs/trunk/backend/propel.yml
+  + /home/dbolog/Projects/bs/trunk/backend/propel.yml.dist
+  Successfully wrote PHP configuration in file "/home/dbolog/Projects/bs/trunk/backend/generated-conf/config.php".
+  Propel 2 is ready to be used!
+$ mv propel.yml* conf                           (segregate config files)
+
+REVERSE ENGINEERING DEL DATABASE
+$ vendor/bin/propel reverse --config-dir conf --output-dir conf -- dbspiaggie
+
+UPDATE MODEL AND CONFIGURATION SCRIPT
+$ vendor/bin/propel model:build --config-dir conf -v     (build model)
+$ vendor/bin/propel config:convert --config-dir conf -v  (script dsn config)
+
+... aggiungere  "autoload": { "classmap": ["generated-class/"] } a composer.json
+                                            (configure classes autoload path)
+$ php composer.phar dump-autoload           (setup autoloading script)
+
